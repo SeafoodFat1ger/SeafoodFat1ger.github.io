@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OS_Lab5_实验报告 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab5_实验报告一、思考题Thinking 5.1如果通过 kseg0 读写设备，那么对于设备的写入会缓存到 Cache 中。这是 一种错误的行为，在实际编写代码的时候这么做会引发不可预知的问题。请思考：这么做 这会引发什么问题？对于不同种类的设备（如我们提到的串口设备和 IDE 磁盘）、的操作会 有差异吗？可以从缓存的性质和缓存更新的策略来考虑。 1.访问内核时错误读取到设备内容2.外设可能随">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS_Lab5_实验报告">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/05/29/OS_Lab5/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="Lab5_实验报告一、思考题Thinking 5.1如果通过 kseg0 读写设备，那么对于设备的写入会缓存到 Cache 中。这是 一种错误的行为，在实际编写代码的时候这么做会引发不可预知的问题。请思考：这么做 这会引发什么问题？对于不同种类的设备（如我们提到的串口设备和 IDE 磁盘）、的操作会 有差异吗？可以从缓存的性质和缓存更新的策略来考虑。 1.访问内核时错误读取到设备内容2.外设可能随">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-05-29T15:02:14.000Z">
+<meta property="article:modified_time" content="2024-05-29T15:05:08.086Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/05/29/OS_Lab5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OS_Lab5_实验报告',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-29 23:05:08'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archive/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archive/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OS_Lab5_实验报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-29T15:05:08.086Z" title="更新于 2024-05-29 23:05:08">2024-05-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/">OS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OS_Lab5_实验报告"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lab5-实验报告"><a href="#Lab5-实验报告" class="headerlink" title="Lab5_实验报告"></a>Lab5_实验报告</h1><h2 id="一、思考题"><a href="#一、思考题" class="headerlink" title="一、思考题"></a>一、思考题</h2><h3 id="Thinking-5-1"><a href="#Thinking-5-1" class="headerlink" title="Thinking 5.1"></a>Thinking 5.1</h3><p><strong>如果通过 kseg0 读写设备，那么对于设备的写入会缓存到 Cache 中。这是 一种错误的行为，在实际编写代码的时候这么做会引发不可预知的问题。请思考：这么做 这会引发什么问题？对于不同种类的设备（如我们提到的串口设备和 IDE 磁盘）、的操作会 有差异吗？可以从缓存的性质和缓存更新的策略来考虑。</strong></p>
+<p>1.访问内核时错误读取到设备内容<br>2.外设可能随时更新，如果在上一次缓存过后，设备的值已经发生了改变，但系统读取外设时先在 Cache 中查找到设备后返回缓存的值，那么通过缓存会访问到落后内容。</p>
+<p>串口设备由于即时性与高使用频率，会比IDE磁盘更容易出现这样的错误</p>
+<h3 id="Thinking-5-2"><a href="#Thinking-5-2" class="headerlink" title="Thinking 5.2"></a>Thinking 5.2</h3><p><strong>查找代码中的相关定义，试回答一个磁盘块中最多能存储多少个文件控制块？一个目录下最多能有多少个文件？我们的文件系统支持的单个文件最大为多大？</strong> </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FILE_STRUCT_SIZE 256</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">File</span> &#123;</span></span><br><span class="line">	<span class="type">char</span> f_name[MAXNAMELEN]; <span class="comment">// filename</span></span><br><span class="line">	<span class="type">uint32_t</span> f_size;	 <span class="comment">// file size in bytes</span></span><br><span class="line">	<span class="type">uint32_t</span> f_type;	 <span class="comment">// file type</span></span><br><span class="line">	<span class="type">uint32_t</span> f_direct[NDIRECT];</span><br><span class="line">	<span class="type">uint32_t</span> f_indirect;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">File</span> *<span class="title">f_dir</span>;</span> <span class="comment">// the pointer to the dir where this file is in, valid only in memory.</span></span><br><span class="line">	<span class="type">char</span> f_pad[FILE_STRUCT_SIZE - MAXNAMELEN - (<span class="number">3</span> + NDIRECT) * <span class="number">4</span> - <span class="keyword">sizeof</span>(<span class="type">void</span> *)];</span><br><span class="line">&#125; __attribute__((aligned(<span class="number">4</span>), packed));</span><br></pre></td></tr></table></figure>
+
+<p>（1）每个文件控制块都被数组<code>f_pad</code>强制对齐为256B</p>
+<p>一个磁盘块的容量为4KB，最多能存储16个文件控制块（<code>FILE2BLK</code>）</p>
+<p><code>NINDIRECT</code> 文件控制块中间接块指针可以管理的块数量上限为 (BLOCK_SIZE &#x2F; 4) &#x3D; 1024</p>
+<blockquote>
+<p><code>f_direct[NDIRECT]</code>包含10个文件指针，同时f_indirect指向一个间接磁盘块，用来存储指向文件内容的磁盘块的指针，一个指针4B，一个磁盘块大小4KB，可以，存放1024个指针(不使用间接磁盘块的前十个指针)。</p>
+</blockquote>
+<p>（2）一个目录文件最多可以使用1024个磁盘块存储数据，因此一个目录下最多1024*16 &#x3D; 16384个文件</p>
+<p>（3）一个文件最多可以使用1024个磁盘块存储数据，因此一个文件最大容量为1024*4KB &#x3D; 4MB</p>
+<h3 id="Thinking-5-3"><a href="#Thinking-5-3" class="headerlink" title="Thinking 5.3"></a>Thinking 5.3</h3><p><strong>请思考，在满足磁盘块缓存的设计的前提下，我们实验使用的内核支持的最大磁盘大小是多少</strong><br>块缓存所在的地址空间为<code>[0x10000000, 0x50000000)</code> 所以内核能够支持的磁盘大小为<code>0x40000000</code>,也就是1GB。</p>
+<h3 id="Thinking-5-4"><a href="#Thinking-5-4" class="headerlink" title="Thinking 5.4"></a>Thinking 5.4</h3><p>在本实验中，fs&#x2F;serv.h、user&#x2F;include&#x2F;fs.h 等文件中出现了许多宏定义， 试列举你认为较为重要的宏定义，同时进行解释，并描述其主要应用之处</p>
+<ul>
+<li><p><strong>DISKMAP  0x10000000</strong>  磁盘块映射到内存的起点  <code>fs/serv.h</code> </p>
+</li>
+<li><p><strong>DISKMAX  0x40000000</strong>  最大磁盘大小 <code>fs/serv.h</code></p>
+</li>
+<li><p><strong>BLOCK_SIZE 4096</strong>   <code>user/include/fs.h</code></p>
+</li>
+<li><p>*<em>BLOCK_SIZE_BIT 4096</em>8 ** <code>user/include/fs.h</code></p>
+</li>
+<li><p><strong>NDIRECT 10</strong>  <code>user/include/fs.h</code></p>
+</li>
+</ul>
+<p>文件控制块中直接块指针的数量，其值为10</p>
+<ul>
+<li><strong>NINDIRECT (BLOCK_SIZE &#x2F; 4)</strong>  <code>user/include/fs.h</code></li>
+</ul>
+<p>文件控制块中间接块指针可以管理的块数量上限（一个指针4B）</p>
+<ul>
+<li>**FILE2BLK **  <code>user/include/fs.h</code></li>
+</ul>
+<p>一个block块可以容纳File指针的数量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FILE2BLK (BLOCK_SIZE / sizeof(struct File)</span></span><br></pre></td></tr></table></figure>
+
+<p>简单计算可以知道，该宏值为16，即，一个block块可以储存16个File指针</p>
+<h3 id="Thinking-5-5"><a href="#Thinking-5-5" class="headerlink" title="Thinking 5.5"></a>Thinking 5.5</h3><p> <strong>在 Lab4“系统调用与 fork”的实验中我们实现了极为重要的 fork 函数。那 么 fork 前后的父子进程是否会共享文件描述符和定位指针呢？请在完成上述练习的基础上编写一个程序进行验证</strong> </p>
+<p>会。一个进程所有的文件描述符都存储在<code>[FDTABLE, FILEBASE)</code>这一地址空间中。在<code>fork</code>函数执行时，会将这父进程页表中映射一部分地址的页表项拷贝到子进程的页表中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="type">int</span> fd;</span><br><span class="line">	<span class="type">int</span> r;</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">512</span>];</span><br><span class="line">	fd = open(<span class="string">&quot;/test&quot;</span>,O_RDONLY);</span><br><span class="line">	r = fork();</span><br><span class="line">	<span class="keyword">if</span>(r &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		user_panic(<span class="string">&quot;fork error&quot;</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(r == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>((r = read(fd,buf,<span class="number">3</span>))!=<span class="number">3</span>)&#123;</span><br><span class="line">			user_panic(<span class="string">&quot;read error&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		debugf(<span class="string">&quot;child read: \&quot;%s\&quot;\n&quot;</span>,buf);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>((r = read(fd,buf,<span class="number">3</span>))!=<span class="number">3</span>)&#123;</span><br><span class="line">			user_panic(<span class="string">&quot;read error&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		debugf(<span class="string">&quot;father read: \&quot;%s\&quot;\n&quot;</span>,buf);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>test文件内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abcde fghi</span><br><span class="line">jkcbshsciowscwevk</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">father read: &quot;abcd&quot;</span><br><span class="line">child read: &quot;e fg&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Thinking-5-6"><a href="#Thinking-5-6" class="headerlink" title="Thinking 5.6"></a>Thinking 5.6</h3><p><strong>请解释 File, Fd, Filefd 结构体及其各个域的作用。比如各个结构体会在哪 些过程中被使用，是否对应磁盘上的物理实体还是单纯的内存数据等。说明形式自定，要求简洁明了，可大致勾勒出文件系统数据结构与物理实体的对应关系与设计框架。</strong> </p>
+<ul>
+<li><strong>File结构体定义及各个域的作用</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">File</span> &#123;</span></span><br><span class="line">	<span class="type">char</span> f_name[MAXNAMELEN]; <span class="comment">// 文件名</span></span><br><span class="line">	<span class="type">uint32_t</span> f_size;	 <span class="comment">// 文件大小</span></span><br><span class="line">	<span class="type">uint32_t</span> f_type;	 <span class="comment">// 文件类型</span></span><br><span class="line">	<span class="type">uint32_t</span> f_direct[NDIRECT];<span class="comment">//直接块索引</span></span><br><span class="line">	<span class="type">uint32_t</span> f_indirect;<span class="comment">//间接块索引</span></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">File</span> *<span class="title">f_dir</span>;</span> <span class="comment">// 文件目录指针</span></span><br><span class="line">	<span class="type">char</span> f_pad[FILE_STRUCT_SIZE - MAXNAMELEN - (<span class="number">3</span> + NDIRECT) * <span class="number">4</span> - <span class="keyword">sizeof</span>(<span class="type">void</span> *)];<span class="comment">//对齐512字节</span></span><br><span class="line">&#125; __attribute__((aligned(<span class="number">4</span>), packed));</span><br></pre></td></tr></table></figure>
+
+<p>对应磁盘的物理实体，文件系统进行实际操作的对象<code>void file_*(struct File **file)</code></p>
+<ul>
+<li><strong>Fd结构体定义及各个域的作用</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fd</span> &#123;</span></span><br><span class="line">	u_int fd_dev_id;<span class="comment">//文件对应的设备id</span></span><br><span class="line">	u_int fd_offset;<span class="comment">//文件读写的偏移量</span></span><br><span class="line">	u_int fd_omode;<span class="comment">//文件读写的模式 </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>仅为内存数据，主要是用户使用文件描述符对文件进行操作</p>
+<ul>
+<li><strong>Filefd的结构体定义及各个域的作用</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Filefd</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Fd</span> <span class="title">f_fd</span>;</span><span class="comment">//文件描述符结构体</span></span><br><span class="line">	u_int f_fileid;<span class="comment">//文件id，表示该文件在opentab中的位置</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">File</span> <span class="title">f_file</span>;</span> <span class="comment">//文件控制块</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>对应磁盘的物理实体，也包含内存数据，将<code>Fd*</code>强制转换为<code>Filefd*</code>从而获取到文件控制块，获得更多文件信息</p>
+<h3 id="Thinking-5-7"><a href="#Thinking-5-7" class="headerlink" title="Thinking 5.7"></a>Thinking 5.7</h3><p>&#x2F;&#x2F;懒得放图</p>
+<p><strong>图中有多种不同形式的箭头，请解释这些不同箭头的差别，并思考我们的操作系统是如何实现对应类型的进程间通信</strong></p>
+<p> UML时序图中有以下几种箭头</p>
+<table>
+<thead>
+<tr>
+<th align="center">消息类型</th>
+<th align="center">表示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">同步消息</td>
+<td align="center">用黑三角箭头搭配黑实线表示</td>
+</tr>
+<tr>
+<td align="center">异步消息</td>
+<td align="center">用两条小线的开箭头和黑色实线表示</td>
+</tr>
+<tr>
+<td align="center">返回消息</td>
+<td align="center">用黑三角箭头搭配黑色虚线表示</td>
+</tr>
+<tr>
+<td align="center">创建消息</td>
+<td align="center">用开三角箭头搭配黑实线表示，其下面特别注明 <code>&lt;&lt;create&gt;&gt;</code></td>
+</tr>
+<tr>
+<td align="center">摧毁消息</td>
+<td align="center">用黑三角箭头搭配黑实线表示，其下面特别注明 <code>&lt;&lt;destroy&gt;&gt;</code></td>
+</tr>
+<tr>
+<td align="center">Lost and Found Message</td>
+<td align="center">用一个黑色实心的点和黑色实心三角箭头黑实线表示</td>
+</tr>
+</tbody></table>
+<p>通过IPC来实现进程间通信的,发送方先调用<code>ipc_send</code>函数,当接收方成功接收到消息时，<code>ipc_send</code>函数跳出循环结束，这时发送方再调用<code>ipc_recv</code>函数等待接返回信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">fsipc</span><span class="params">(u_int type, <span class="type">void</span> *fsreq, <span class="type">void</span> *dstva, u_int *perm)</span> &#123;</span><br><span class="line">	u_int whom;</span><br><span class="line">	<span class="comment">// Our file system server must be the 2nd env.</span></span><br><span class="line">	ipc_send(envs[<span class="number">1</span>].env_id, type, fsreq, PTE_D);</span><br><span class="line">	<span class="keyword">return</span> ipc_recv(&amp;whom, dstva, perm);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>&#x2F;&#x2F;懒得放图</p>
+<p>请求消息，用户向文件系统发送请求</p>
+<p><code>fsipc(FSREQ_*, 0, 0)</code>，通过发送特定调用号<code>FSREQ_*</code>的值，使得文件系统可以获取<code>serve_table[req]</code>中对于请求类型，进入相应处理函数中处理</p>
+<p>&#x2F;&#x2F;懒得放图</p>
+<p>返回消息，文件系统对于用户请求提供返回值</p>
+<h2 id="二、实验难点"><a href="#二、实验难点" class="headerlink" title="二、实验难点"></a>二、实验难点</h2><h3 id="1-用户进程和文件系统服务进程的交互"><a href="#1-用户进程和文件系统服务进程的交互" class="headerlink" title="1.用户进程和文件系统服务进程的交互"></a>1.用户进程和文件系统服务进程的交互</h3><h4 id="fs-serve-c"><a href="#fs-serve-c" class="headerlink" title="fs&#x2F;serve.c"></a>fs&#x2F;serve.c</h4><p><strong>对请求分发处理</strong></p>
+<p><code>fsipc()</code>—send—&gt;<code>serve()</code>-&gt;<code>serve_*()</code></p>
+<p><strong>处理请求并发送响应</strong></p>
+<p>在<code>serve_*()</code>中调用</p>
+<ul>
+<li><p><code>file_*()</code></p>
+<p>fs.c中的文件服务函数</p>
+</li>
+<li><p><code>ipc_send()</code>—send—&gt;<code>fsipc()</code></p>
+</li>
+</ul>
+<h4 id="user-lib-fd-c"><a href="#user-lib-fd-c" class="headerlink" title="user&#x2F;lib&#x2F;fd.c"></a>user&#x2F;lib&#x2F;fd.c</h4><p>有一个<code>static struct Dev *devtab[]</code></p>
+<p>用户接口 <code>close()、write()、read()、fstat()</code></p>
+<p>调用dev-&gt;dev_*</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//居然是等价的</span></span><br><span class="line">(*dev-&gt;dev_stat)(fd, stat)</span><br><span class="line">dev-&gt;dev_stat(fd, stat)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="user-lib-file-c"><a href="#user-lib-file-c" class="headerlink" title="user&#x2F;lib&#x2F;file.c"></a>user&#x2F;lib&#x2F;file.c</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">file_close</span><span class="params">(<span class="keyword">struct</span> Fd *fd)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">file_read</span><span class="params">(<span class="keyword">struct</span> Fd *fd, <span class="type">void</span> *buf, u_int n, u_int offset)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">file_write</span><span class="params">(<span class="keyword">struct</span> Fd *fd, <span class="type">const</span> <span class="type">void</span> *buf, u_int n, u_int offset)</span>;</span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">file_stat</span><span class="params">(<span class="keyword">struct</span> Fd *fd, <span class="keyword">struct</span> Stat *stat)</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Dev</span> <span class="title">devfile</span> =</span> &#123;</span><br><span class="line">    .dev_id = <span class="string">&#x27;f&#x27;</span>,</span><br><span class="line">    .dev_name = <span class="string">&quot;file&quot;</span>,</span><br><span class="line">    .dev_read = file_read,</span><br><span class="line">    .dev_write = file_write,</span><br><span class="line">    .dev_close = file_close,</span><br><span class="line">    .dev_stat = file_stat,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>file_read、file_write、file_stat</code></p>
+<p>只在内存空间行动</p>
+<p>调用用户库函数，读写文件内容或文件信息</p>
+<p><code>open、remove、file_close</code></p>
+<p>用户进程请求文件服务 调用fsipc_*</p>
+<h4 id="user-lib-fsipc-c"><a href="#user-lib-fsipc-c" class="headerlink" title="user&#x2F;lib&#x2F;fsipc.c"></a>user&#x2F;lib&#x2F;fsipc.c</h4><p><code>fsipc_*</code></p>
+<p>会返回调用<code>fsipc(FSREQ_*, req, void *dstva, u_int *perm)</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">fsipc</span><span class="params">(u_int type, <span class="type">void</span> *fsreq, <span class="type">void</span> *dstva, u_int *perm)</span> &#123;</span><br><span class="line">	u_int whom;</span><br><span class="line">	<span class="comment">// Our file system server must be the 2nd env.</span></span><br><span class="line">	ipc_send(envs[<span class="number">1</span>].env_id, type, fsreq, PTE_D);</span><br><span class="line">	<span class="keyword">return</span> ipc_recv(&amp;whom, dstva, perm);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-文件系统的地址空间"><a href="#2-文件系统的地址空间" class="headerlink" title="2.文件系统的地址空间"></a>2.文件系统的地址空间</h3><p>文件服务进程的块缓存所在的地址空间为<code>[DISKMAP, DISKMAP + DISKMAX)</code> </p>
+<p>用户进程所有文件描述符所在的地址空间为 <code>[FILEBASE - PDMAP, FILEBASE)</code> </p>
+<p>用户进程文件描述符对应文件内容整体的映射区间为 <code>[FILEBASE, FILEBASE+1024*PDMAP)</code></p>
+<h2 id="三、实验体会"><a href="#三、实验体会" class="headerlink" title="三、实验体会"></a>三、实验体会</h2><p>本单元文件系统内容之多、难度之深、时间之紧让我叹服，还好只上一次机，如果有机会，期末考试结束了会回头再看看的……</p>
+<blockquote>
+<p>宜将剩勇追穷寇，不可沽名学霸王</p>
+<p>Lab5上机（5.29）、<del>航概考试（6.2）</del>、OS理论考试（6.7）、挑战性任务（十八周）</p>
+<p>哥们来了！！</p>
+</blockquote>
+<blockquote>
+<p>笑死了extra又挂了！！！！！！！！！！！！！！！！！！！！！！！！！！！！</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/05/29/OS_Lab5/">http://seafoodfat1ger.github.io/2024/05/29/OS_Lab5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OS_Lab4_实验报告</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/19/OS_Lab0/" title="OS_Lab0_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-19</div><div class="title">OS_Lab0_实验报告</div></div></a></div><div><a href="/2024/03/27/OS_Lab1/" title="OS_Lab1_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-27</div><div class="title">OS_Lab1_实验报告</div></div></a></div><div><a href="/2024/04/10/OS_Lab2/" title="OS_Lab2_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-10</div><div class="title">OS_Lab2_实验报告</div></div></a></div><div><a href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-24</div><div class="title">OS_Lab3_实验报告</div></div></a></div><div><a href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">OS_Lab4_实验报告</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab5-%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab5_实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">一、思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 5.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 5.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 5.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 5.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 5.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 5.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-5-7"><span class="toc-number">1.1.7.</span> <span class="toc-text">Thinking 5.7</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E9%9A%BE%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">二、实验难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%BA%A4%E4%BA%92"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.用户进程和文件系统服务进程的交互</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#fs-serve-c"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">fs&#x2F;serve.c</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#user-lib-fd-c"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">user&#x2F;lib&#x2F;fd.c</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#user-lib-file-c"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">user&#x2F;lib&#x2F;file.c</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#user-lib-fsipc-c"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">user&#x2F;lib&#x2F;fsipc.c</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.文件系统的地址空间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、实验体会</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/15/OO_Unit3/" title="OO_Unit3"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit3"/></a><div class="content"><a class="title" href="/2024/05/15/OO_Unit3/" title="OO_Unit3">OO_Unit3</a><time datetime="2024-05-15T03:30:14.000Z" title="发表于 2024-05-15 11:30:14">2024-05-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab3_实验报告"/></a><div class="content"><a class="title" href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告">OS_Lab3_实验报告</a><time datetime="2024-04-24T15:02:14.000Z" title="发表于 2024-04-24 23:02:14">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/18/OO_Unit2/" title="OO_Unit2"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit2"/></a><div class="content"><a class="title" href="/2024/04/18/OO_Unit2/" title="OO_Unit2">OO_Unit2</a><time datetime="2024-04-18T06:30:14.000Z" title="发表于 2024-04-18 14:30:14">2024-04-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OS_Lab4_实验报告 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Lab4_实验报告一、思考题Thinking 4.1 内核在保存现场的时候是如何避免破坏通用寄存器的？  内核在kern&#x2F;entry.S异常入口处使用宏函数SAVE ALL保存通用寄存器和部分CP0寄存器，其中只使用k0和k1寄存器来操作，不会破坏其他通用寄存器 系统陷入内核调用后可以直接从当时的 $a0-$a3 参数寄存器中得到用户调用 msyscall 留下的信息吗？  我觉得需要分类讨论，理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS_Lab4_实验报告">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/05/24/OS_Lab4/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="Lab4_实验报告一、思考题Thinking 4.1 内核在保存现场的时候是如何避免破坏通用寄存器的？  内核在kern&#x2F;entry.S异常入口处使用宏函数SAVE ALL保存通用寄存器和部分CP0寄存器，其中只使用k0和k1寄存器来操作，不会破坏其他通用寄存器 系统陷入内核调用后可以直接从当时的 $a0-$a3 参数寄存器中得到用户调用 msyscall 留下的信息吗？  我觉得需要分类讨论，理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-05-24T15:02:14.000Z">
+<meta property="article:modified_time" content="2024-05-29T15:04:46.523Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/05/24/OS_Lab4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OS_Lab4_实验报告',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-29 23:04:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archive/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archive/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OS_Lab4_实验报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-29T15:04:46.523Z" title="更新于 2024-05-29 23:04:46">2024-05-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/">OS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OS_Lab4_实验报告"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lab4-实验报告"><a href="#Lab4-实验报告" class="headerlink" title="Lab4_实验报告"></a>Lab4_实验报告</h1><h2 id="一、思考题"><a href="#一、思考题" class="headerlink" title="一、思考题"></a>一、思考题</h2><h3 id="Thinking-4-1"><a href="#Thinking-4-1" class="headerlink" title="Thinking 4.1"></a>Thinking 4.1</h3><p> <strong>内核在保存现场的时候是如何避免破坏通用寄存器的？</strong> </p>
+<p>内核在<code>kern/entry.S</code>异常入口处使用宏函数<code>SAVE ALL</code>保存通用寄存器和部分CP0寄存器，其中只使用<code>k0</code>和<code>k1</code>寄存器来操作，不会破坏其他通用寄存器</p>
+<p><strong>系统陷入内核调用后可以直接从当时的 $a0-$a3 参数寄存器中得到用户调用 msyscall 留下的信息吗？</strong> </p>
+<p>我觉得需要分类讨论，理由如下：</p>
+<p>陷入内核调用时</p>
+<ul>
+<li><code>kern\entry.S</code>在<code>SAVE_ALL</code>生成一个<code>Trapeframe</code> 并把<code>sp</code> 指向 <code>Trapframe</code> 的底部</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">exc_gen_entry:</span><br><span class="line">	SAVE_ALL</span><br><span class="line">	mfc0    t0, CP0_STATUS</span><br><span class="line">	and     t0, t0, ~(STATUS_UM | STATUS_EXL | STATUS_IE)</span><br><span class="line">	mtc0    t0, CP0_STATUS</span><br><span class="line">/* Exercise 3.9: Your code here. */</span><br><span class="line">	mfc0 t0, CP0_CAUSE</span><br><span class="line">	andi t0, 0x7c</span><br><span class="line">	lw t0, exception_handlers(t0)</span><br><span class="line">	jr t0</span><br></pre></td></tr></table></figure>
+
+<p>  如果在此时获取<code>a0-a3</code>自然是可以的</p>
+<p>但<code>jr t0</code>之后进入了对应的异常处理函数</p>
+<ul>
+<li><p>如果你对应的异常是：<code>tlb_refill、tlb_mod、syscall、reserved</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.macro BUILD_HANDLER exception handler</span><br><span class="line">NESTED(handle_\exception, TF_SIZE + 8, zero)</span><br><span class="line">	move    a0, sp</span><br><span class="line">	addiu   sp, sp, -8</span><br><span class="line">	jal     \handler</span><br><span class="line">	addiu   sp, sp, 8</span><br><span class="line">	j       ret_from_exception</span><br><span class="line">END(handle_\exception)</span><br><span class="line">.endm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>kern\genex.S</code>中<code>move    a0, sp</code>是为了<code>void do_xxx(struct Trapframe *tf) </code>传参 </p>
+<p>如果你是<code>syscall</code>，原来<code>a0</code>寄存器储存的是系统调用号</p>
+<p>此时<code>a0</code>寄存器的值已经改变，不能直接调用</p>
+</li>
+</ul>
+</li>
+<li><p>如果你进入对应异常是时钟中断</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NESTED(handle_int, TF_SIZE, zero)</span><br><span class="line">	mfc0    t0, CP0_CAUSE</span><br><span class="line">	mfc0    t2, CP0_STATUS</span><br><span class="line">	and     t0, t2</span><br><span class="line">	andi    t1, t0, STATUS_IM7</span><br><span class="line">	bnez    t1, timer_irq</span><br><span class="line">timer_irq:</span><br><span class="line">	li      a0, 0</span><br><span class="line">	j       schedule</span><br><span class="line">END(handle_int)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当你跳转到<code>timer_irq</code>时，<code>a0</code>又发生了改变^_^</li>
+</ul>
+</li>
+</ul>
+<p><strong>我们是怎么做到让 sys 开头的函数“认为”我们提供了和用户调用 msyscall 时同样 的参数的？</strong> </p>
+<p> <code>user/lib/syscall_all.c</code> 中调用 <code>syscall_*()</code> 时，函数的前四个参数存入 <code>a0-a3</code> ，剩下两个参数存进栈</p>
+<p>调用 <code>msyscall</code> 、分发异常至 <code>handle_sys</code> 、调用 <code>do_syscall</code> ，此时我们取出<code>a0-a3</code> 以及栈帧中的两个数，得到的就是同样的后五个参数</p>
+<p><strong>内核处理系统调用的过程对 Trapframe 做了哪些更改？这种修改对应的用户态的变化是什么？</strong></p>
+<p>进行了<code>tf-&gt;cp0_epc += 4</code>，因为<code>syscall</code>不在延迟槽内执行，所以可以保证系统调用后返回执行下一条指令</p>
+<p>进行了<code>tf-&gt;regs[2] = func(arg1, arg2, arg3, arg4, arg5)</code>系统调用后的返回值写入了v0寄存器</p>
+<h3 id="Thinking-4-2"><a href="#Thinking-4-2" class="headerlink" title="Thinking 4.2"></a>Thinking 4.2</h3><p><strong>思考 envid2env 函数: 为什么 envid2env 中需要判断 e-&gt;env_id !&#x3D; envid 的情况？如果没有这步判断会发生什么情况？</strong> </p>
+<p><code>envid</code>的低10位表示在<code>envs</code>中的索引，高位则表示调用<code>mkenvid</code>的次数</p>
+<p>若传入的参数<code>envid</code>属于一个已销毁的进程，应该返回<code> -E_BAD_ENV</code>。但如果没有判断<code>e-&gt;env_id!=envid</code>，已销毁进程的<code>envid</code> 和新创建进程的 <code>envid</code> 都能通过 <code>ENVX</code> 宏取得相同的值，得到对应同一个进程控制块。</p>
+<h3 id="Thinking-4-3"><a href="#Thinking-4-3" class="headerlink" title="Thinking 4.3"></a>Thinking 4.3</h3><p><strong>思考下面的问题，并对这个问题谈谈你的理解：请回顾 kern&#x2F;env.c 文件 中 mkenvid() 函数的实现，该函数不会返回 0，请结合系统调用和 IPC 部分的实现与 envid2env() 函数的行为进行解释</strong></p>
+<ul>
+<li><p><code>envid2env()</code> ：由于 <code>mkenvid</code> 不可能返回 0，所以我们可以通过 <code>envid</code>等于0来访问当前进程<code>curenv</code></p>
+</li>
+<li><p><code>IPC</code>：如果传入的 <code>envid</code> 为 0，也就是不合法，那当前进程会自己和自己通信，不会产生其它影响</p>
+</li>
+</ul>
+<h3 id="Thinking-4-4"><a href="#Thinking-4-4" class="headerlink" title="Thinking 4.4"></a>Thinking 4.4</h3><p><strong>关于 fork 函数的两个返回值，下面说法正确的是：</strong></p>
+<p> <strong>A、fork 在父进程中被调用两次，产生两个返回值</strong> </p>
+<p><strong>B、fork 在两个进程中分别被调用一次，产生两个不同的返回值</strong></p>
+<p> <strong>C、fork 只在父进程中被调用了一次，在两个进程中各产生一个返回值</strong></p>
+<p> <strong>D、fork 只在子进程中被调用了一次，在两个进程中各产生一个返回值</strong> </p>
+<p>C</p>
+<h3 id="Thinking-4-5"><a href="#Thinking-4-5" class="headerlink" title="Thinking 4.5"></a>Thinking 4.5</h3><p><strong>我们并不应该对所有的用户空间页都使用 duppage 进行映射。那么究竟哪 些用户空间页应该映射，哪些不应该呢？请结合 kern&#x2F;env.c 中 env_init 函数进行的页面映射、include&#x2F;mmu.h 里的内存布局图以及本章的后续描述进行思考</strong></p>
+<p><img src="/img/OS/Lab4/1.png" alt="图片" title="1"></p>
+<ul>
+<li><code>UXSTACKTOP</code>到<code>ULIM</code>之间储存的是和内核相关的页表信息，在<code>env_init()</code>中，已经通过<code>map_segment()</code>创建了<code>base_pgdir</code>模板页目录，在创建新进程时，会复制模板页目录，故此部分无需映射</li>
+<li><code>UXSTACKTOP-PGSIZE</code> 到 <code>UXSTACKTOP</code> 之间是异常栈，写时复制使用，故此部分无需映射</li>
+<li><code>USTACKTOP</code> 到 <code>UXSTACKTOP-PGSIZE</code> 之间是empty memory，故此部分无需映射</li>
+<li><code>UTEXT</code> 到 <code>USTACKTOP</code> 中，可写且不共享的内容都需要被映射</li>
+</ul>
+<h3 id="Thinking-4-6"><a href="#Thinking-4-6" class="headerlink" title="Thinking 4.6"></a>Thinking 4.6</h3><p><strong>在遍历地址空间存取页表项时你需要使用到 vpd 和 vpt 这两个指针，请参考user&#x2F;include&#x2F;lib.h 中的相关定义，思考并回答这几个问题：</strong> </p>
+<ul>
+<li><strong>vpt 和 vpd 的作用是什么？怎样使用它们？</strong></li>
+</ul>
+<p><code>vpt</code>是页表起始地址  <code>vpd</code>是页目录起始地址</p>
+<p>可以直接用数组的形式，如 <code>vpd[va&gt;&gt;22]</code></p>
+<ul>
+<li><strong>从实现的角度谈一下为什么进程能够通过这种方式来存取自身的页表？</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> vpt ((const volatile Pte *)UVPT)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> vpd ((const volatile Pde *)(UVPT + (PDX(UVPT) &lt;&lt; PGSHIFT)))</span></span><br></pre></td></tr></table></figure>
+
+<p>宏定义用户态页目录、页表的基地址，再通过偏移读取自身页表</p>
+<ul>
+<li><strong>它们是如何体现自映射设计的？</strong></li>
+</ul>
+<p><code>vpd</code> 的地址是<code>(UVPT + (PDX(UVPT) &lt;&lt; PGSHIFT)</code>，在 <code>UVPT</code> 和 <code>UVPT + PDMAP</code> 之间，说明将页目录映射到了某一页表位置，也就是自映射</p>
+<ul>
+<li><strong>进程能够通过这种方式来修改自己的页表项吗？</strong></li>
+</ul>
+<p>不能，用户只有只读权限，若想修改页表项，需要陷入内核进行操作</p>
+<h3 id="Thinking-4-7"><a href="#Thinking-4-7" class="headerlink" title="Thinking 4.7"></a>Thinking 4.7</h3><p><strong>在 do_tlb_mod 函数中，你可能注意到了一个向异常处理栈复制 Trapframe 运行现场的过程，请思考并回答这几个问题：</strong></p>
+<ul>
+<li><strong>这里实现了一个支持类似于“异常重入”的机制，而在什么时候会出现这种“异常重 入”？</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (tf-&gt;regs[<span class="number">29</span>] &lt; USTACKTOP || tf-&gt;regs[<span class="number">29</span>] &gt;= UXSTACKTOP) &#123;</span><br><span class="line">	tf-&gt;regs[<span class="number">29</span>] = UXSTACKTOP;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在写时复制、发生缺页异常时，可能再次发生缺页异常，防止之前的异常处理过程的信息丢失，对于 <code>sp</code> 已经在异常栈中的情况，不再从异常栈顶开始</p>
+<ul>
+<li><strong>内核为什么需要将异常的现场 Trapframe 复制到用户空间？</strong></li>
+</ul>
+<p>用户态异常处理函数需要使用<code>Trapframe </code>中的内容，且这是恢复现场必须的</p>
+<p>内核态处理<code>TLB Mod</code>异常：<code>kern/tlbex.c</code>中<code>tlb_mod</code>异常的现场<code>Trapframe</code>复制到用户空间，并设置<code>tf-&gt;cp0_epc = ...</code>，从异常恢复后能够以异常处理栈中保存的现场（<code>Trapframe</code>）为参数，跳转到用户态异常处理函数（<code>cow_entry</code>） 。</p>
+<p>在用户态异常处理函数（<code>cow_entry</code>）完成异常处理后，我们会通过<code>sys_set_trapframe</code> 将当前异常栈修改为传入的参数 <code>struct Trapframe *tf</code> 对应的<code>Trapframe</code>。从该系统调用返回时，将返回<code>epc</code> 的位置，恢复到产生<code>TLB Mod</code> 时的现场。</p>
+<h3 id="Thinking-4-8"><a href="#Thinking-4-8" class="headerlink" title="Thinking 4.8"></a>Thinking 4.8</h3><p><strong>在用户态处理页写入异常，相比于在内核态处理有什么优势？</strong> </p>
+<p>按照微内核的设计理念，尽可能地将功能实现在用户空间中，内核态处理发生错误可能会使得操作系统崩溃。但用户态权限有限，可以避免产生意外的改变。</p>
+<h3 id="Thinking-4-9"><a href="#Thinking-4-9" class="headerlink" title="Thinking 4.9"></a>Thinking 4.9</h3><p><strong>为什么需要将 syscall_set_tlb_mod_entry 的调用放置在 syscall_exofork 之前？</strong> </p>
+<p><strong>如果放置在写时复制保护机制完成之后会有怎样的效果？</strong></p>
+<p>根据讨论区助教的回答：</p>
+<ul>
+<li><p><code>syscall_set_tlb_mod_entry</code> 的调用放置在 <code>syscall_exofork</code> 前后都没有影响。第一次 <code>syscall_set_tlb_mod_entry</code> 是针对父进程设置的。在子进程 <code>RUNNABLE</code> 之前父进程已经设置了子进程的 <code>tlb_mod_entry</code>。子进程 <code>RUNNABLE</code> 后会从 <code>syscall_exofork</code> 逐级调用的 <code>syscall</code> 指令之后开始执行。如果在<code>syscall_exofork</code> 之后再 <code>syscall_set_tlb_mod_entry</code>，那么子进程也会执行这个系统调用。</p>
+</li>
+<li><p>父进程运行时在函数调用等情形下会修改栈。在栈空间的页面标记为写时复制之后，父进程继续运行并修改栈，就会触发<code>TLB Mod</code> 异常。所以在写时复制保护机制完成之前就需要 <code>syscall_set_tlb_mod_entry</code>。</p>
+</li>
+</ul>
+<h2 id="二、实验难点"><a href="#二、实验难点" class="headerlink" title="二、实验难点"></a>二、实验难点</h2><h3 id="1-实现新的系统调用"><a href="#1-实现新的系统调用" class="headerlink" title="1.实现新的系统调用"></a>1.实现新的系统调用</h3><p>实现一个新的系统调用基本上是四步走：</p>
+<ol>
+<li>在<code>include/syscall.h</code>头文件中先定义好新的<strong>系统调用号</strong>和<strong>系统调用名</strong>。</li>
+<li>在<code>user/include/lib.h</code>    &#x2F;&#x2F;syscalls 加入syscall_*函数定义（可能还会加用户函数）</li>
+<li>在<code>user/lib/syscall_lib.c</code>用户态先定义这个syscall_*函数，调用msyscall</li>
+<li>在<code>user/lib/ipc.c</code>有可能要更新？</li>
+<li>在 <code>kern/syscall_all.c</code> 中的 <code>void *syscall_table[MAX_SYSNO]</code> 系统调用函数表中，为你定义的系统调用号添加对应的内核函数指针</li>
+<li>在 <code>kern/syscall_all.c</code> 中：添加两个系统调用在内核中的实现函数sys_*。请保证两个函数的定义位于系统调用函数表 <code>void *syscall_table[MAX_SYSNO]</code> 之前</li>
+</ol>
+<h3 id="2-用户态的一些名词解释"><a href="#2-用户态的一些名词解释" class="headerlink" title="2.用户态的一些名词解释"></a>2.用户态的一些名词解释</h3><p><img src="/img/OS/Lab4/1.png" alt="图片" title="1"></p>
+<ul>
+<li><p><strong>UPAGES、UENVS</strong> </p>
+<p>map_segment 创建一个模板页目录</p>
+</li>
+<li><p><strong>UVPT-UTOP</strong> </p>
+<p>env_setup_vm memcpy模板页目录到进程的页目录</p>
+</li>
+<li><p><strong>UVPT 、 ULIM</strong> </p>
+<p>User VPT部分 进程自己的页表</p>
+<p><code>user/include/lib.h</code></p>
+<ul>
+<li><p>vpd 页目录</p>
+</li>
+<li><p>vpt 页表项</p>
+</li>
+<li><p>envs 进程块List 可以通过envs[ENVX(envid)]访问</p>
+</li>
+<li><p>pages 页物理块</p>
+</li>
+</ul>
+</li>
+<li><p><strong>UXSTACKTOP</strong></p>
+<p>用户态的异常处理栈</p>
+</li>
+<li><p><code>user/lib</code>文件夹下的<strong>env</strong></p>
+<p><code>user/lib/libos.c</code></p>
+<p><code>const volatile struct Env *env</code>  都是指向当前进程</p>
+</li>
+<li><p>**user_panic(“字符串”);**用户态panic</p>
+</li>
+<li><p><strong>debugf(“”);</strong> 用户态printk</p>
+</li>
+<li><p><code>user/lib/debugf.c </code></p>
+<p>debugf -&gt; vdebugf -&gt; vprintfmt -&gt; debug_output -&gt; debug_flush -&gt; syscall_print_cons</p>
+</li>
+</ul>
+<h3 id="3-系统调用过程"><a href="#3-系统调用过程" class="headerlink" title="3.系统调用过程"></a>3.系统调用过程</h3><p><img src="/img/OS/Lab4/2.png" alt="图片" title="2"></p>
+<p><code>user/lib/syscall_lib.c</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> syscall_*()&#123;</span><br><span class="line">	<span class="keyword">return</span> msyscall(变长参数)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>user/lib/syscall_wrap.S</code></p>
+<p>msyscall -&gt; syscall -&gt; 异常分发 </p>
+<p><code>kern/genex.S</code></p>
+<p>handle_sys([8] &#x3D; handle_sys) -&gt;do_syscall</p>
+<p><code>kern/syscall.c</code></p>
+<p>void sys_*()</p>
+<h2 id="三、实验体会"><a href="#三、实验体会" class="headerlink" title="三、实验体会"></a>三、实验体会</h2><blockquote>
+<p>为什么为什么为什么又挂Extra？我还要怎么学怎么学怎么学？？？？？——5.8</p>
+</blockquote>
+<p>Lab4第一次上机挂在<code>TAILQ</code>宏定义没有熟练掌握，因为是<strong>取出</strong><code>TALQ_FIRST</code>之后还要进行<code>TAILQ_REMOVE</code>，老生常谈的细心问题，我却不愿归结于粗心上</p>
+<ul>
+<li>过于相信自己总结的字典！只要<code>grep</code>一下就可以找到用法，为什么不做呢？</li>
+<li>上机前特有的松弛感，以为一切尽在掌握？</li>
+</ul>
+<p>下周上机之前，我会再将迄今为止的重点完整梳理一遍的</p>
+<blockquote>
+<p>宜将剩勇追穷寇，不可沽名学霸王。虽然Unix期中、航概考试、军理大作业接踵而来，但是准备Lab5启动！！！——5.11</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/05/24/OS_Lab4/">http://seafoodfat1ger.github.io/2024/05/24/OS_Lab4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS_Lab5_实验报告</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/15/OO_Unit3/" title="OO_Unit3"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OO_Unit3</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/19/OS_Lab0/" title="OS_Lab0_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-19</div><div class="title">OS_Lab0_实验报告</div></div></a></div><div><a href="/2024/03/27/OS_Lab1/" title="OS_Lab1_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-27</div><div class="title">OS_Lab1_实验报告</div></div></a></div><div><a href="/2024/04/10/OS_Lab2/" title="OS_Lab2_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-10</div><div class="title">OS_Lab2_实验报告</div></div></a></div><div><a href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-24</div><div class="title">OS_Lab3_实验报告</div></div></a></div><div><a href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-29</div><div class="title">OS_Lab5_实验报告</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab4-%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab4_实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">一、思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 4.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 4.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 4.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 4.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-7"><span class="toc-number">1.1.7.</span> <span class="toc-text">Thinking 4.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-8"><span class="toc-number">1.1.8.</span> <span class="toc-text">Thinking 4.8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-9"><span class="toc-number">1.1.9.</span> <span class="toc-text">Thinking 4.9</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E9%9A%BE%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">二、实验难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%9E%E7%8E%B0%E6%96%B0%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.实现新的系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E4%B8%80%E4%BA%9B%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.用户态的一些名词解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.系统调用过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、实验体会</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/15/OO_Unit3/" title="OO_Unit3"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit3"/></a><div class="content"><a class="title" href="/2024/05/15/OO_Unit3/" title="OO_Unit3">OO_Unit3</a><time datetime="2024-05-15T03:30:14.000Z" title="发表于 2024-05-15 11:30:14">2024-05-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab3_实验报告"/></a><div class="content"><a class="title" href="/2024/04/24/OS_Lab3/" title="OS_Lab3_实验报告">OS_Lab3_实验报告</a><time datetime="2024-04-24T15:02:14.000Z" title="发表于 2024-04-24 23:02:14">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/18/OO_Unit2/" title="OO_Unit2"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit2"/></a><div class="content"><a class="title" href="/2024/04/18/OO_Unit2/" title="OO_Unit2">OO_Unit2</a><time datetime="2024-04-18T06:30:14.000Z" title="发表于 2024-04-18 14:30:14">2024-04-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
