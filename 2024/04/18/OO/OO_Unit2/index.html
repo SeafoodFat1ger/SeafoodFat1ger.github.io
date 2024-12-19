@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OO_Unit2 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="一、架构设计迭代1.hw51.1 类图 1.2 时序图 1.3 架构分析（变不变）深入贯彻落实“今朝有酒今朝醉”的原则，在博览博客之后，发现都说去年LOOK+自由竞争是活少分高的不二选择✧(≖ ◡ ≖✿)  我果断加入LOOK大家庭，结（zhao）合（chao）实验代码，草率搓出了第一版  Main运行InputThread输入线程、Schedule调度器（我其实之前耦合在输入线程里面）、Elev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO_Unit2">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/04/18/OO/OO_Unit2/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="一、架构设计迭代1.hw51.1 类图 1.2 时序图 1.3 架构分析（变不变）深入贯彻落实“今朝有酒今朝醉”的原则，在博览博客之后，发现都说去年LOOK+自由竞争是活少分高的不二选择✧(≖ ◡ ≖✿)  我果断加入LOOK大家庭，结（zhao）合（chao）实验代码，草率搓出了第一版  Main运行InputThread输入线程、Schedule调度器（我其实之前耦合在输入线程里面）、Elev">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-04-18T06:30:14.000Z">
+<meta property="article:modified_time" content="2024-04-19T03:21:54.114Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/04/18/OO/OO_Unit2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OO_Unit2',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-19 11:21:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OO_Unit2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-18T06:30:14.000Z" title="发表于 2024-04-18 14:30:14">2024-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-19T03:21:54.114Z" title="更新于 2024-04-19 11:21:54">2024-04-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OO/">OO</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OO_Unit2"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、架构设计迭代"><a href="#一、架构设计迭代" class="headerlink" title="一、架构设计迭代"></a>一、架构设计迭代</h2><h3 id="1-hw5"><a href="#1-hw5" class="headerlink" title="1.hw5"></a>1.hw5</h3><h4 id="1-1-类图"><a href="#1-1-类图" class="headerlink" title="1.1 类图"></a>1.1 类图</h4><p><img src="/img/OO/Unit2/1.png" alt="图片" title="1"></p>
+<h4 id="1-2-时序图"><a href="#1-2-时序图" class="headerlink" title="1.2 时序图"></a>1.2 时序图</h4><p><img src="/img/OO/Unit2/seg1.png" alt="图片" title="seg1"></p>
+<h4 id="1-3-架构分析（变不变）"><a href="#1-3-架构分析（变不变）" class="headerlink" title="1.3 架构分析（变不变）"></a>1.3 架构分析（变不变）</h4><p>深入贯彻落实<strong>“今朝有酒今朝醉”</strong>的原则，在博览博客之后，发现都说去年LOOK+自由竞争是<strong>活少分高</strong>的不二选择✧(≖ ◡ ≖✿) </p>
+<p>我果断加入LOOK大家庭，结（zhao）合（chao）实验代码，草率搓出了第一版</p>
+<ul>
+<li><p><code>Main</code>运行<code>InputThread</code>输入线程、<code>Schedule</code>调度器（我其实之前耦合在输入线程里面）、<code>Elevator</code>电梯线程</p>
+</li>
+<li><p>共享的数据类型只有<code>Pesron</code>记录人员请求信息、<code>RequestTable</code>管理人员请求信息</p>
+</li>
+<li><p>策略类<code>Strategy</code>，采用LOOK算法</p>
+</li>
+</ul>
+<p>梦幻开局，我还天真的认为：电梯月？就这？？(๑＞ڡ＜)☆</p>
+<h4 id="1-4-调度器设计"><a href="#1-4-调度器设计" class="headerlink" title="1.4 调度器设计"></a>1.4 调度器设计</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mainRequestTable.isEmpty() &amp;&amp; mainRequestTable.isEnd()) &#123;</span><br><span class="line">            <span class="keyword">for</span> (RequestTable requestTable : verticalRequestTables) &#123;</span><br><span class="line">                requestTable.setEnd(<span class="literal">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> mainRequestTable.getOneRequest();</span><br><span class="line">        <span class="keyword">if</span> (person == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">eleId</span> <span class="operator">=</span> person.getBeginElevator();</span><br><span class="line">        verticalRequestTables.get(eleId - <span class="number">1</span>).addRequest(person);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这次作业没什么存在性的东西，直接按照输入分配</p>
+<h4 id="1-5-同步块与锁"><a href="#1-5-同步块与锁" class="headerlink" title="1.5 同步块与锁"></a>1.5 同步块与锁</h4><p>对<code>RequestTable</code>里的所有方法统统上锁一劳永逸✧ (≖ ‿ ≖)✧</p>
+<p>在<code>Strategy</code>类里遍历<code>RequestTable</code>里容器的时候别忘上锁，不然有几率触发<code>Java.util.ConcurrentModificationException</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">reqSameDirection</span><span class="params">(<span class="type">int</span> eleFloor, <span class="type">boolean</span> eleDirection)</span> &#123;</span><br><span class="line">    <span class="comment">//请求队列非空已判断</span></span><br><span class="line">    <span class="keyword">synchronized</span> (request) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer i : request.getReqMap().keySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((i &gt; eleFloor &amp;&amp; eleDirection) ||</span><br><span class="line">                    (i &lt; eleFloor &amp;&amp; !eleDirection)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-hw6"><a href="#2-hw6" class="headerlink" title="2.hw6"></a>2.hw6</h3><h4 id="2-1-类图"><a href="#2-1-类图" class="headerlink" title="2.1 类图"></a>2.1 类图</h4><p><img src="/img/OO/Unit2/2.png" alt="图片" title="2"></p>
+<h4 id="2-2-时序图"><a href="#2-2-时序图" class="headerlink" title="2.2 时序图"></a>2.2 时序图</h4><p><img src="/img/OO/Unit2/seg2.png" alt="图片" title="seg2"></p>
+<h4 id="2-3-架构分析（变不变）"><a href="#2-3-架构分析（变不变）" class="headerlink" title="2.3 架构分析（变不变）"></a>2.3 架构分析（变不变）</h4><p>适逢清明假期，周一得知不能使用自由竞争的我缓缓裂开 º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚</p>
+<p>抛开调度策略不谈（随机是我最后的港湾），重构启动！！！</p>
+<p>本次作业新增<code>RESET</code>，将重构总结为四步</p>
+<ul>
+<li><p>输入线程得到reset请求-&gt;mainRequest新增resetRequest请求队列数据结构</p>
+</li>
+<li><p>调度线程分配reset请求-&gt;eleRequest新增resetRequest数据结构</p>
+</li>
+<li><p>电梯类加入reset执行过程-&gt;放人-&gt;输出begin-&gt;返回请求-&gt;改电梯属性-&gt;输出end</p>
+</li>
+<li><p>策略类新增<code>RESET</code>建议</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (request.getResetRequest() != <span class="literal">null</span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> Advice.RESET;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-调度器设计"><a href="#2-4-调度器设计" class="headerlink" title="2.4 调度器设计"></a>2.4 调度器设计</h4><p>心比天高不自量力，遂开始研究<strong>影子电梯</strong>，苦于前人记载较模糊，只有“用计时代替sleep”，完全不会做（╯#-_-)╯╧═╧</p>
+<p>不想写深克隆也不想考虑是不是线程安全（我至今觉得下面的代码有问题就是没被hack到hhh）</p>
+<p>写了一个丑陋的<code>shadow</code>类，来负责<strong>计算</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Shadow</span><span class="params">(Elevator elevator)</span> &#123;</span><br><span class="line">	<span class="comment">//一些有的没的。。。</span></span><br><span class="line">    <span class="built_in">this</span>.time = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//抽象开始了 我感觉线程不安全hh</span></span><br><span class="line">    ArrayList&lt;Person&gt; reqArr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    reqArr.addAll(elevator.getEleRequest().getReqArr());</span><br><span class="line">    <span class="built_in">this</span>.eleRequest = <span class="keyword">new</span> <span class="title class_">RequestTable</span>();</span><br><span class="line">    <span class="keyword">for</span> (Person person : reqArr) &#123;</span><br><span class="line">        eleRequest.addRequestClone(person);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.eleMap = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    ArrayList&lt;Person&gt; elePerson = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    elePerson.addAll(elevator.getElePersonArr());</span><br><span class="line">    <span class="keyword">for</span> (Person person : elePerson) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">toFloor</span> <span class="operator">=</span> person.getToFloor();</span><br><span class="line">        <span class="keyword">if</span> (eleMap.containsKey(toFloor)) &#123;</span><br><span class="line">            eleMap.get(toFloor).add(person);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ArrayList&lt;Person&gt; persons = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            persons.add(person);</span><br><span class="line">            eleMap.put(person.getToFloor(), persons);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考<a target="_blank" rel="noopener" href="https://bbs.csdn.net/topics/614676460">前人博客</a>遍历6个电梯，找出能够使得新请求加入后整体运行时间结束最早的进行分配</p>
+<p>丑陋抽象的实现了“影子电梯”，为第三次无法完全模拟电梯行为埋下祸根( &gt;﹏&lt;。)～ </p>
+<h4 id="2-5-同步块与锁"><a href="#2-5-同步块与锁" class="headerlink" title="2.5 同步块与锁"></a>2.5 同步块与锁</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ResetRequest</span> <span class="variable">resetRequest</span> <span class="operator">=</span> mainRequestTable.getOneReset();</span><br><span class="line"><span class="keyword">if</span> (resetRequest != <span class="literal">null</span>) &#123;</span><br><span class="line">    resetElevator(resetRequest);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> mainRequestTable.getOneRequest();</span><br><span class="line"><span class="keyword">if</span> (person != <span class="literal">null</span>) &#123;</span><br><span class="line">	dispatch(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新增对应调度器内的<code>resetElevator</code>、<code>dispatch</code>方法分别上锁，确保不会同时执行</p>
+<h4 id="2-6-结束条件"><a href="#2-6-结束条件" class="headerlink" title="2.6 结束条件"></a>2.6 结束条件</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mainRequestTable.isPersonEmpty() &amp;&amp; mainRequestTable.isResetEmpty()</span><br><span class="line">        &amp;&amp; mainRequestTable.isEnd()) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isFinished()) &#123;<span class="comment">//每部电梯所有请求处理完毕 reqArr.isEmpty() &amp;&amp; resetRequest == null</span></span><br><span class="line">        <span class="keyword">for</span> (RequestTable requestTable : eleRequestTables) &#123;</span><br><span class="line">            requestTable.setEnd(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">//避免轮询</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            sleep(<span class="number">500</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>mainRequestTable</code>所有请求处理完毕（reset &amp; person）</p>
+</li>
+<li><p>输入结束</p>
+</li>
+<li><p>每部电梯所有请求处理完毕（reset &amp; person）</p>
+</li>
+</ul>
+<h3 id="3-hw7"><a href="#3-hw7" class="headerlink" title="3.hw7"></a>3.hw7</h3><h4 id="3-1-类图"><a href="#3-1-类图" class="headerlink" title="3.1 类图"></a>3.1 类图</h4><p><img src="/img/OO/Unit2/3.png" alt="图片" title="3"></p>
+<h4 id="3-2-时序图"><a href="#3-2-时序图" class="headerlink" title="3.2 时序图"></a>3.2 时序图</h4><p><img src="/img/OO/Unit2/seg3.png" alt="图片" title="seg3"></p>
+<h4 id="3-3-架构分析（变不变）"><a href="#3-3-架构分析（变不变）" class="headerlink" title="3.3 架构分析（变不变）"></a>3.3 架构分析（变不变）</h4><p>本周新增<code>DCElevator</code>，对此我强烈建议成立<strong>影子电梯受害者联盟</strong> º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ </p>
+<p>秉持着菜就多练的原则，本周我灵活运用达芬奇睡眠法，倾情加入Buffer神教，继续深耕影子电梯</p>
+<p>butttttttttt 缝缝补补到周六早八，还是有bug………</p>
+<p>一怒之下，转身向随机算法+随机地大小睡走去 </p>
+<blockquote>
+<p>if u wanna sleep ，u must sleep ，著名哲学家，在周六九点终于入睡的汀小姐如是说道</p>
+</blockquote>
+<h4 id="3-4-调度器设计"><a href="#3-4-调度器设计" class="headerlink" title="3.4 调度器设计"></a>3.4 调度器设计</h4><p>本来我通过罚时粗糙模拟了Gemini电梯的运行时间，但遇到了如下问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//debug实录</span><br><span class="line">//加锁了？？你一被我深克隆的东西怎么还会被外界改？？反思</span><br><span class="line">//计算时间 改了一天还有问题？？</span><br><span class="line">//人怎么还要上锁啊？？？？？</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>今天交了一波强测，发现全AC了，世界是一个巨大的笑话    ——4.19</p>
+</blockquote>
+<p>于是转身向随机走去</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">int</span> <span class="title function_">randomDispatch</span><span class="params">(Person person)</span> &#123;</span><br><span class="line">    <span class="type">Random</span> <span class="variable">random</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    <span class="type">int</span> <span class="variable">id</span> <span class="operator">=</span> random.nextInt(<span class="number">6</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">synchronized</span> (电梯表) &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (A电梯表) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (B电梯表) &#123;</span><br><span class="line">                <span class="comment">//......</span></span><br><span class="line">                    <span class="keyword">if</span> (isChange) &#123;</span><br><span class="line">                        person.setNeedChange(<span class="literal">true</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (isA) &#123;</span><br><span class="line">                        Output.printReceive(<span class="number">1</span>,geminis.get(index).getId(),person.getId());</span><br><span class="line">                        geminiAReqs.get(index).addRequest(person);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        Output.printReceive(<span class="number">2</span>,geminis.get(index).getId(),person.getId());</span><br><span class="line">                        geminiBReqs.get(index).addRequest(person);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;<span class="comment">//普通电梯</span></span><br><span class="line">                    <span class="keyword">if</span> (eleRequestTables.get(id - <span class="number">1</span>).getResetRequest() != <span class="literal">null</span></span><br><span class="line">                            || eleRequestTables.get(id - <span class="number">1</span>).getDcRequest() != <span class="literal">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        Output.printReceive(<span class="number">0</span>,id,person.getId());</span><br><span class="line">                        eleRequestTables.get(id - <span class="number">1</span>).addRequest(person);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-Gemini电梯防碰撞"><a href="#3-5-Gemini电梯防碰撞" class="headerlink" title="3.5 Gemini电梯防碰撞"></a>3.5 Gemini电梯防碰撞</h4><p>仿照<code>RESET</code>指令，很容易复现<code>DCRESET</code>，区别在于<code>DCRESET</code>在1.2s执行结束后我选择终止电梯线程</p>
+<p>原电梯线程在调度器里新建<code>Gemini</code>类<del>（双子星！姐妹儿英语真有水平）</del>，管理新建AB两个电梯</p>
+<p>继续沿用LOOK策略，因为我只要确保人员分配正确、运行特判就可以让它们在现有架构下正确工作，我们要做的是对Gemini电梯的移动特殊规范一下（电梯防撞）</p>
+<p><strong>最关键的电梯防撞:</strong></p>
+<p>我起初想不要让电梯占用TransferFloor，来了干完活就走，但人总是喜欢自己为难自己(๑＞ڡ＜)☆</p>
+<p>探索之后，我写出了这样的shit</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">moveSpecial</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (Gemini电梯 准备来Transfer) &#123;</span><br><span class="line">        <span class="keyword">while</span> (floor.isOccupy()) &#123;</span><br><span class="line">            floor.occupyOneAway(type);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">synchronized</span> (floor) &#123;</span><br><span class="line">            floor.setOccupy();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                sleep((<span class="type">long</span>) (<span class="number">1000</span> * moveTime));</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            eleFloor = stopFloor;</span><br><span class="line">            Output.printArrive(type, id, eleFloor);</span><br><span class="line"></span><br><span class="line">            <span class="type">Advice</span> <span class="variable">advice</span> <span class="operator">=</span> strategy.getAdvice(eleFloor, elePersonNum,</span><br><span class="line">                    eleDirection, eleMap, eleMaxNum,</span><br><span class="line">                    type, stopFloor, elePersonArr);</span><br><span class="line">            <span class="keyword">if</span> (advice == Advice.OPEN) &#123;</span><br><span class="line">                openAndClose();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Gemini电梯 准备离开transfer) &#123;</span><br><span class="line">    	<span class="comment">//走</span></span><br><span class="line">        floor.awayTransfer();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//正常行动</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>设置一个<code>floor</code>类来表示换乘层是否占用，内存AB两电梯的请求表</p>
+</li>
+<li><p>如果A想进入换乘层，<code>floor</code>被占用，就向请求表发送离开换乘层的请求，A<code>sleep</code>一下</p>
+<p>另一部电梯（B）离开后，<code>floor.awayTransfer()</code>设置换乘层不被占用标志</p>
+<p>此时A睡醒了进入换乘层进行放人操作</p>
+</li>
+<li><p>如果A主动离开换乘层（有人需要接），<code>floor.awayTransfer()</code>设置换乘层不被占用标志</p>
+</li>
+</ul>
+<p>一睡到底逃避锁的竞争，不愧是我T_T</p>
+<p>直到今天复习OS的时候看到<strong>进程互斥的软件实现</strong>，我有种似曾相识的感觉……这错误集锦是在骂我！！！</p>
+<h4 id="3-6-结束条件"><a href="#3-6-结束条件" class="headerlink" title="3.6 结束条件"></a>3.6 结束条件</h4><p>和上次相比新增<code>changeMan == 0</code></p>
+<p>分配去换乘的乘客要坐上最后一班列车，我们才能放心和OO第二单元告别啊º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ ~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">decreaceChangeMan</span><span class="params">()</span> &#123;</span><br><span class="line">    changeMan--;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">addChangeMan</span><span class="params">()</span> &#123;</span><br><span class="line">    changeMan++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二、bug分析"><a href="#二、bug分析" class="headerlink" title="二、bug分析"></a>二、bug分析</h2><h3 id="1-hw5-1"><a href="#1-hw5-1" class="headerlink" title="1.hw5"></a>1.hw5</h3><p><strong>de出来的bug</strong></p>
+<p>可恶的<code>Java.util.ConcurrentModificationException</code></p>
+<p>线程不安全de遍历<code>RequestTable</code>里容器的时候一遍删除一遍遍历，别忘记上锁</p>
+<p>第一次作业差点寄在这里了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">reqSameDirection</span><span class="params">(<span class="type">int</span> eleFloor, <span class="type">boolean</span> eleDirection)</span> &#123;</span><br><span class="line">    <span class="comment">//请求队列非空已判断</span></span><br><span class="line">    <span class="keyword">synchronized</span> (request) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer i : request.getReqMap().keySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((i &gt; eleFloor &amp;&amp; eleDirection) ||</span><br><span class="line">                    (i &lt; eleFloor &amp;&amp; !eleDirection)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>强测和互测</strong></p>
+<p>均没有hack和被hack 我们都好优秀(*＞◡❛)</p>
+<h3 id="2-hw6-1"><a href="#2-hw6-1" class="headerlink" title="2.hw6"></a>2.hw6</h3><p><strong>de出来的bug</strong></p>
+<ul>
+<li>电梯最大人数忘记改居然还能过中测？？？？</li>
+<li>RESET_BEGIN在人员请求返回主表之后才输出</li>
+</ul>
+<p><strong>强测和互测</strong></p>
+<p>强测多亏了伟大的影子电梯</p>
+<p>互测进入了<strong>围城必阙</strong>副本</p>
+<p>一时齐发众妙毕备！！！！因为设置<code>RESET</code>电梯不接客所以大量请求就会涌入唯一一部不在<code>RESET</code>的电梯T_T</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[1.0]RESET-Elevator-6-3-0.6</span><br><span class="line">[49.5]RESET-Elevator-1-3-0.6</span><br><span class="line">[49.5]RESET-Elevator-2-3-0.6</span><br><span class="line">[49.5]RESET-Elevator-3-3-0.6</span><br><span class="line">[49.5]RESET-Elevator-4-3-0.6</span><br><span class="line">[49.5]RESET-Elevator-5-3-0.6</span><br><span class="line">[49.5]1-FROM-2-TO-11</span><br><span class="line">[49.5]3-FROM-3-TO-11</span><br><span class="line">[49.5]3-FROM-3-TO-10</span><br><span class="line">。。。</span><br></pre></td></tr></table></figure>
+<p>这种数据我一刀连上自己能刀7个人º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ （PS：我是文明人，这刀我就使一次）</p>
+<p>此外还发现了一些同学reset调度上的一些bug</p>
+<p>真是一次快乐刀人的体验 成功率高达33.3%╰ ( ´⌣` )╯</p>
+<h3 id="3-hw7-1"><a href="#3-hw7-1" class="headerlink" title="3.hw7"></a>3.hw7</h3><p><strong>de出来的bug</strong></p>
+<p>AB电梯结束在停靠层，要在<code>OVER</code>之前先请它离开停靠层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (request.isEnd()) &#123;</span><br><span class="line">    <span class="keyword">if</span> (type != <span class="number">0</span> &amp;&amp; eleFloor == stopFloor) &#123;</span><br><span class="line">        <span class="keyword">return</span> Advice.AWAY;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Advice.OVER;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>de不出来的bug</strong></p>
+<ul>
+<li>影子电梯内请求表即使深克隆也会莫名其妙被篡改</li>
+<li>buffer内的人减数分裂了</li>
+<li>影子电梯初始化时原电梯加锁后还会被篡改</li>
+</ul>
+<p><strong>强测和互测</strong></p>
+<ul>
+<li><p>伟大的随机没有bug(๑ơ ₃ ơ)♥</p>
+</li>
+<li><p>房间里有最后一条RESET就爆炸的地雷</p>
+</li>
+<li><p>还有同学电梯防撞做的不到位<del>（要我说就该随地大小睡）</del></p>
+</li>
+<li><p>还有同学调度器写的有问题，有请求处理不完就覆盖了，但抽不到这张bug卡T_T</p>
+</li>
+</ul>
+<h3 id="4-debug方法"><a href="#4-debug方法" class="headerlink" title="4.debug方法"></a>4.debug方法</h3><ul>
+<li>首先写之前确保自己的运行逻辑没有漏洞</li>
+<li>其次使用大量数据来抽卡找bug</li>
+<li>使用<strong>printf大法</strong>复现bug，python里多开线程测这个错误数据来提高爆率</li>
+<li>对于轮询bug，在while(true)里面使用<strong>printf大法</strong>定位，通过<strong>sleep</strong>来避免</li>
+<li><del>勇敢放弃de不出来的bug，选择有简洁美的随机</del></li>
+</ul>
+<h2 id="三、心得体会"><a href="#三、心得体会" class="headerlink" title="三、心得体会"></a>三、心得体会</h2><h3 id="1-线程安全"><a href="#1-线程安全" class="headerlink" title="1.线程安全"></a>1.线程安全</h3><p>起初对线程安全只有一个模糊的概念，不就是对<code>RequestTable</code>上锁？后期迭代老师建议将电梯与电梯线程分离，但因为偷懒我一意孤行将电梯保持共商共建共享开放包容。因此我遇到了数不清的线程安全问题T_T</p>
+<p>关于读写锁，我也只是在理论课和实验课代码中浅尝辄止，因为偷懒我一意孤行只使用<code>synchronized</code>，性能差差的很安心T_T</p>
+<p>我想如果这单元能重来一遍，我一定会好好重构一次线程安全的优雅的代码，可惜没如果º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ ~</p>
+<h3 id="2-层次化设计"><a href="#2-层次化设计" class="headerlink" title="2.层次化设计"></a>2.层次化设计</h3><p>这单元的层次化设计非常清晰！基本架构沿用了三次作业</p>
+<ul>
+<li><p>输入线程、调度线程、电梯线程三板斧</p>
+</li>
+<li><p>请求表、人员为共享资源</p>
+</li>
+<li><p>电梯运行与策略分离</p>
+</li>
+</ul>
+<p>良好的层次化设计让我每次新增代码量不多（思考量不少</p>
+<h2 id="四、心情体会"><a href="#四、心情体会" class="headerlink" title="四、心情体会"></a>四、心情体会</h2><ul>
+<li><p>生活不止代码，高分值得我加倍付出努力，但它绝不是我生活的主旋律 (^∇^☆)</p>
+<p>美好的清明假期，无法割舍的是<del>没有打成的</del>明日方舟桌游，无法割舍的是凌晨的麦麦，无法割舍的是与同学海底捞小聚，无法割舍的是人大旁边的萨莉亚，无法割舍的是五道口的棋牌室，无法割舍的是朋友和稍纵即逝的青春<del>（谁家6系人天天吃喝玩乐啊喂）</del></p>
+</li>
+<li><p>看到这里的大家都注意身体健康！</p>
+<p>连续两周一坐坐一天对着密密麻麻数据debug，我能精准的记忆每位乘客不同调度策略的概率和我的bug出现概率</p>
+<p>夜昏乍似灯将灭,朝暗长疑镜未磨……我该换新眼镜（眼睛）了(ฅ´ω`ฅ)</p>
+</li>
+<li><p>自我为难和放过自我之间的平衡</p>
+<p>对于不打算深耕cs专业的我，着了什么魔非要写影子电梯呢？？可能是被追求卓越的大家感染了吧hhhh</p>
+<p>但我最后因为心得第一点和菜的原因，还是选择放过自我，随机真香啊suki！！！(ฅ´ω`ฅ)</p>
+</li>
+<li><p>结尾致谢</p>
+<p>感谢亲亲舍友帮我找出来无数的bug</p>
+<p>cozy！<strong>“你一句你别急真不晚，我就到了真江南”</strong><br>Shae！<strong>267yyds！！存在即安心</strong><br>luma！<strong>睡神！noSleep_noSleep</strong></p>
+<p>感谢耐心帮助、精神鼓励的良师益友们</p>
+<p>感谢讨论区以及开发测评机的无私奉献的佬们</p>
+<p>感谢OO课程组的倾情付出 给了我神奇的电梯月体验º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ ~</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/04/18/OO/OO_Unit2/">http://seafoodfat1ger.github.io/2024/04/18/OO/OO_Unit2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO/">OO</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/04/24/OS/OS_Lab3/" title="OS_Lab3_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OS_Lab3_实验报告</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/10/OS/OS_Lab2/" title="OS_Lab2_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OS_Lab2_实验报告</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-01</div><div class="title">BUAA_OOP_2024_碎碎念总结</div></div></a></div><div><a href="/2024/03/21/OO/OO_Unit1/" title="OO_Unit1"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-21</div><div class="title">OO_Unit1</div></div></a></div><div><a href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-19</div><div class="title">OO_Unit4</div></div></a></div><div><a href="/2024/05/15/OO/OO_Unit3/" title="OO_Unit3"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">OO_Unit3</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E8%BF%AD%E4%BB%A3"><span class="toc-number">1.</span> <span class="toc-text">一、架构设计迭代</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-hw5"><span class="toc-number">1.1.</span> <span class="toc-text">1.hw5</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 时序图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%EF%BC%88%E5%8F%98%E4%B8%8D%E5%8F%98%EF%BC%89"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 架构分析（变不变）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E8%B0%83%E5%BA%A6%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4 调度器设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-%E5%90%8C%E6%AD%A5%E5%9D%97%E4%B8%8E%E9%94%81"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5 同步块与锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-hw6"><span class="toc-number">1.2.</span> <span class="toc-text">2.hw6</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 时序图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%EF%BC%88%E5%8F%98%E4%B8%8D%E5%8F%98%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 架构分析（变不变）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E8%B0%83%E5%BA%A6%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4 调度器设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E5%90%8C%E6%AD%A5%E5%9D%97%E4%B8%8E%E9%94%81"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5 同步块与锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-%E7%BB%93%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.2.6.</span> <span class="toc-text">2.6 结束条件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-hw7"><span class="toc-number">1.3.</span> <span class="toc-text">3.hw7</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 类图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E6%97%B6%E5%BA%8F%E5%9B%BE"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 时序图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%EF%BC%88%E5%8F%98%E4%B8%8D%E5%8F%98%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 架构分析（变不变）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E8%B0%83%E5%BA%A6%E5%99%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 调度器设计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-Gemini%E7%94%B5%E6%A2%AF%E9%98%B2%E7%A2%B0%E6%92%9E"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5 Gemini电梯防碰撞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E7%BB%93%E6%9D%9F%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.3.6.</span> <span class="toc-text">3.6 结束条件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81bug%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">二、bug分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-hw5-1"><span class="toc-number">2.1.</span> <span class="toc-text">1.hw5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-hw6-1"><span class="toc-number">2.2.</span> <span class="toc-text">2.hw6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-hw7-1"><span class="toc-number">2.3.</span> <span class="toc-text">3.hw7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-debug%E6%96%B9%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">4.debug方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">三、心得体会</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="toc-number">3.1.</span> <span class="toc-text">1.线程安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B1%82%E6%AC%A1%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.2.</span> <span class="toc-text">2.层次化设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BF%83%E6%83%85%E4%BD%93%E4%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">四、心情体会</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit1"/></a><div class="content"><a class="title" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1">OO_Unit1</a><time datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUAA_OOP_2024_碎碎念总结"/></a><div class="content"><a class="title" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结">BUAA_OOP_2024_碎碎念总结</a><time datetime="2024-10-01T15:02:14.000Z" title="发表于 2024-10-01 23:02:14">2024-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit4"/></a><div class="content"><a class="title" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4">OO_Unit4</a><time datetime="2024-06-19T15:02:14.000Z" title="发表于 2024-06-19 23:02:14">2024-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

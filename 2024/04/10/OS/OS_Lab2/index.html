@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OS_Lab2_实验报告 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Lab2_实验报告一、思考题Thinking 2.1 在编写的 C 程序中，指针变量中存储的地址被视为虚拟地址 MIPS 汇编程序中 lw 和 sw 指令使用的地址被视为虚拟地址  Thinking 2.2 从可重用性的角度，阐述用宏来实现链表的好处  ​    C 语言并没有泛型的语法，用宏来实现含有不同类型结构体的链表，可以提高代码的可重用性，可读性更高  查看实验环境中的 &#x2F;usr&#x2F;incl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS_Lab2_实验报告">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/04/10/OS/OS_Lab2/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="Lab2_实验报告一、思考题Thinking 2.1 在编写的 C 程序中，指针变量中存储的地址被视为虚拟地址 MIPS 汇编程序中 lw 和 sw 指令使用的地址被视为虚拟地址  Thinking 2.2 从可重用性的角度，阐述用宏来实现链表的好处  ​    C 语言并没有泛型的语法，用宏来实现含有不同类型结构体的链表，可以提高代码的可重用性，可读性更高  查看实验环境中的 &#x2F;usr&#x2F;incl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-04-10T15:02:14.000Z">
+<meta property="article:modified_time" content="2024-04-10T15:34:49.659Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/04/10/OS/OS_Lab2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OS_Lab2_实验报告',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-10 23:34:49'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OS_Lab2_实验报告</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-10T15:02:14.000Z" title="发表于 2024-04-10 23:02:14">2024-04-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-10T15:34:49.659Z" title="更新于 2024-04-10 23:34:49">2024-04-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OS/">OS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OS_Lab2_实验报告"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Lab2-实验报告"><a href="#Lab2-实验报告" class="headerlink" title="Lab2_实验报告"></a>Lab2_实验报告</h1><h2 id="一、思考题"><a href="#一、思考题" class="headerlink" title="一、思考题"></a>一、思考题</h2><h3 id="Thinking-2-1"><a href="#Thinking-2-1" class="headerlink" title="Thinking 2.1"></a>Thinking 2.1</h3><ul>
+<li>在编写的 C 程序中，指针变量中存储的地址被视为虚拟地址</li>
+<li>MIPS 汇编程序中 lw 和 sw 指令使用的地址被视为虚拟地址</li>
+</ul>
+<h3 id="Thinking-2-2"><a href="#Thinking-2-2" class="headerlink" title="Thinking 2.2"></a>Thinking 2.2</h3><ul>
+<li><strong>从可重用性的角度，阐述用宏来实现链表的好处</strong></li>
+</ul>
+<p>​    C 语言并没有泛型的语法，用宏来实现含有不同类型结构体的链表，可以提高代码的可重用性，可读性更高</p>
+<ul>
+<li><strong>查看实验环境中的 /usr/include/sys/queue.h，了解其中单向链表与循环链表的实现，比较它们与本实验中使用的双向链表，分析三者在插入与删除操作上的性能差异</strong><br><img src="/img/OS/Lab2/sys_list.png" alt="图片" title="sys_list"></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单向链表</th>
+<th>循环链表</th>
+<th>双向链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add before first node</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add before given node</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add after given node</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add after last node</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>delet first node</td>
+<td>O(1)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>delet given node</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>delet last node</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Thinking-2-3"><a href="#Thinking-2-3" class="headerlink" title="Thinking 2.3"></a>Thinking 2.3</h3><p>通过下面的宏展开</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//include/pmap.h</span></span><br><span class="line">LIST_HEAD(Page_list, Page);</span><br><span class="line"><span class="keyword">typedef</span> <span class="title function_">LIST_ENTRY</span><span class="params">(Page)</span> Page_LIST_entry_t;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Page</span> &#123;</span></span><br><span class="line">        Page_LIST_entry_t pp_link; <span class="comment">/* free list link */</span></span><br><span class="line">        u_short pp_ref;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//include/queue.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LIST_ENTRY(type)                                                                           \</span></span><br><span class="line"><span class="meta">        struct &#123;                                                                                   \</span></span><br><span class="line"><span class="meta">                struct type *le_next;  <span class="comment">/* next element */</span>                                          \</span></span><br><span class="line"><span class="meta">                struct type **le_prev; <span class="comment">/* address of previous next element */</span>                      \</span></span><br><span class="line"><span class="meta">        &#125;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LIST_HEAD(name, type)                                                                      \</span></span><br><span class="line"><span class="meta">        struct name &#123;                                                                              \</span></span><br><span class="line"><span class="meta">                struct type *lh_first; <span class="comment">/* first element */</span>                                         \</span></span><br><span class="line"><span class="meta">        &#125;</span></span><br></pre></td></tr></table></figure>
+<p>可知正确答案为C：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Page_list</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">		<span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">			<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">le_next</span>;</span></span><br><span class="line">			<span class="class"><span class="keyword">struct</span> <span class="title">Page</span> **<span class="title">le_prev</span>;</span></span><br><span class="line">		&#125; pp_link;</span><br><span class="line">		u_short pp_ref;</span><br><span class="line">	&#125;* lh_first;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Thinking-2-4"><a href="#Thinking-2-4" class="headerlink" title="Thinking 2.4"></a>Thinking 2.4</h3><ul>
+<li><strong>请阅读上面有关 TLB 的描述，从虚拟内存和多进程操作系统的实现角度，阐述 ASID 的必要性。</strong></li>
+</ul>
+<p>​    ASID是用于标识此 TLB 条目与哪个进程相关。系统中并发执行多个拥有不同虚拟地址空间的进程，具有不同的页表。而 CPU 的 MMU 使用 TLB 缓存虚拟地址映射关系，不同页表拥有不同虚拟地址映射，不同进程的虚拟地址可以对应相同的虚拟页号。同时并发执行的多个进程具有不同 ASID 以方便 TLB 标识其虚拟地址空间。</p>
+<p>(源自Lab3指导书^_^)</p>
+<ul>
+<li><strong>请阅读 MIPS 4Kc 文档《MIPS32® 4K™ Processor Core Family Software User’s Manual》的 Section 3.3.1 与 Section 3.4，结合 ASID 段的位数，说明 4Kc 中可容纳 不同的地址空间的最大数量。</strong></li>
+</ul>
+<blockquote>
+<p>The purpose of the TLB is to translate virtual addresses and their corresponding Address Space Identifier (ASID) into a physical memory address. The translation is performed by comparing the upper bits of the virtual address<strong>(along with the ASID bits) </strong>against each of the entries in the tag portion of the JTLB structure.</p>
+<p>In this figure the virtual address is extended with an <strong>8-bit address-space identifier (ASID)</strong>, which reduces the frequency of TLB flushing during a context switch. This 8-bit ASID contains the number assigned to that process and is stored in the CP0 EntryHi register.</p>
+</blockquote>
+<p><code>ASID</code>段共有8位，可以被设置为256个不同的值，因此<code>4Kc</code>中可最多容纳256个不同的地址空间。</p>
+<h3 id="Thinking-2-5"><a href="#Thinking-2-5" class="headerlink" title="Thinking 2.5"></a>Thinking 2.5</h3><ul>
+<li><strong>tlb_invalidate 和 tlb_out 的调用关系</strong></li>
+</ul>
+<p>​        <code>tlb_invalidate</code> 调用<code>tlb_out</code></p>
+<ul>
+<li><p><strong>请用一句话概括 tlb_invalidate 的作用</strong></p>
+<p><code>tlb_invalidate</code> 函数可以实现删除特定虚拟地址的映射，每当页表被修改，就需要调用该函数以保证下次访问相应虚拟地址时一定触发 TLB 重填，进而保证访存的正确性</p>
+</li>
+<li><p><strong>逐行解释 tlb_out 中的汇编代码</strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">LEAF(tlb_out)</span><br><span class="line">.set noreorder</span><br><span class="line">        mfc0    t0, CP0_ENTRYHI  #ENTRYHI寄存器值存入t0寄存器</span><br><span class="line">        mtc0    a0, CP0_ENTRYHI  #a0寄存器值存入ENTRYHI寄存器</span><br><span class="line">        nop</span><br><span class="line">        tlbp  #：根据EntryHi中的Key查找TLB中与之对应的表项，并将表项的索引存入 Index 寄存器</span><br><span class="line">        nop</span><br><span class="line">        mfc0    t1, CP0_INDEX  #INDEX寄存器值存入t1寄存器</span><br><span class="line">.set reorder</span><br><span class="line">        bltz    t1, NO_SUCH_ENTRY  #t1寄存器值(INDEX寄存器值)小于0，未找到匹配项，跳转到NO_SUCH_ENTRY</span><br><span class="line">		nop</span><br><span class="line">.set noreorder</span><br><span class="line">        mtc0    zero, CP0_ENTRYHI  #EntryHi寄存器赋值为0</span><br><span class="line">        mtc0    zero, CP0_ENTRYLO0  #EntryLo0寄存器赋值为0</span><br><span class="line">        mtc0    zero, CP0_ENTRYLO1  #EntryLo1寄存器赋值为0</span><br><span class="line">        nop</span><br><span class="line">        tlbwi  #以Index寄存器中的值为索引，将EntryHi、EntryLo0、EntryLo1的值写到索引指定的 TLB 表项中</span><br><span class="line">.set reorder</span><br><span class="line"></span><br><span class="line">NO_SUCH_ENTRY:</span><br><span class="line">        mtc0    t0, CP0_ENTRYHI  #t0寄存器值存入ENTRYHI寄存器</span><br><span class="line">        j       ra  #函数返回</span><br><span class="line">END(tlb_out)</span><br></pre></td></tr></table></figure>
+<h3 id="Thinking-2-6"><a href="#Thinking-2-6" class="headerlink" title="Thinking 2.6"></a>Thinking 2.6</h3><p><strong>简单了解并叙述 X86 体系结构中的内存管理机制，比较 X86 和 MIPS 在内存管理上的区别。</strong></p>
+<ul>
+<li><p>X86 体系结构中的内存管理机制：</p>
+<p>X86采用分段式分页式内存管理机制，将内存地址空间划分为多个段，每个段都有自己的基地址和界限，再将每个段进一步分割成固定大小的页面，通常为 4KB。分段和分页结合起来实现了更加灵活和高效的内存管理。</p>
+<p>X86 的内存管理由以下寄存器控制：</p>
+<p>段寄存器（DS、ES、SS、CS、FS、GS）：存储段的基地址</p>
+<p>页表寄存器（CR3）：存储页表的基地址</p>
+<p>页目录表寄存器（CR4）：存储页目录表的基地址</p>
+</li>
+<li><p>比较 X86 和 MIPS 在内存管理上的区别：</p>
+<ul>
+<li>X86主要采用的是段页式内存管理，MIPS主要采用的是页式内存管理</li>
+<li>X86 的 TLB 是两级结构，而 MIPS 的 TLB 是一级结构</li>
+<li>TLB未命中处理x86 使用硬件 MMU 直接访问页表并填充 TLB，MIPS 使用异常和内核的处理函数来填充 TLB</li>
+<li>转换失败的虚址，X86使用CR2存放，MIPS使用BadVAddr寄存器存放</li>
+</ul>
+</li>
+</ul>
+<h3 id="Thinking-A-1"><a href="#Thinking-A-1" class="headerlink" title="Thinking A.1"></a>Thinking A.1</h3><p><strong>在现代的64位系统中，提供了64位的字长，但实际上不是64位页式存储系统。假设在64位系统中采用三级页表机制，页面大小4KB。由于64位系统中字长为8B，且页目录也占用一页，因此页目录中有512个页目录项，因此每级页表都需要9位。因此在64位系统下，总共需要3 × 9 + 12 = 39位就可以实现三级页表机制，并不需要64位。现考虑上述39位的三级页式存储系统，虚拟地址空间为512GB，若记三级页表的基地址为PT_base，请你计算：</strong></p>
+<ul>
+<li><p><strong>三级页表页目录的基地址</strong></p>
+<p>页面目录(PDG) 中间目录(PMD) 页表(PT)</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+第一个中间目录项对应第(PT_{base}>>12)页表项\\
+第一个中间目录项对应PT_{base}的偏移量(PT_{base}>>12)<<3 = (PT_{base}>>9)\\ 
+PMD_{base} = PT_{base}+(PT_{base}>>9)\\
+\\
+第一个页面目录项对应第(((PT_{base}>>9))>>12)中间目录项\\
+第一个页面目录项对应对应PMD_{base}的偏移量(PT_{base}>>12)<<3 = (PT_{base}>>9)\\
+PGD_{base} = PT_{base}+(PT_{base}>>9) + (PT_{base}>> 18)</script><ul>
+<li><strong>映射到页目录自身的页目录项（自映射）</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+第一个页面目录项对于PGD_{base}的偏移(PT_{base}>> 27)\\
+PGD_{self\_mapping} = PT_{base}+(PT_{base}>>9) + (PT_{base}>> 18)+ (PT_{base}>> 27)</script><h2 id="二、实验难点"><a href="#二、实验难点" class="headerlink" title="二、实验难点"></a>二、实验难点</h2><h3 id="1-overview"><a href="#1-overview" class="headerlink" title="1.overview"></a>1.overview</h3><p>实验总体流程调用函数的依赖关系如下图：</p>
+<p><img src="/img/OS/Lab2/lab2_overview.png" alt="图片" title="lab2_overview"></p>
+<h3 id="2-链表宏和page结构体的对应关系"><a href="#2-链表宏和page结构体的对应关系" class="headerlink" title="2.链表宏和page结构体的对应关系"></a>2.链表宏和page结构体的对应关系</h3><p><code>page_free_list</code> 是<code>struct Page_list</code></p>
+<p><code>head</code> 是<code>struct Page_list *</code>  故使用时应该  <code>&amp;page_free_list</code></p>
+<p><code>var</code>,<code>listelm</code>,<code>elm</code> 是<code>struct Page *</code>  </p>
+<p><code>field</code> 是 <code>pp_link</code></p>
+<p>遍历链表如下操作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Page</span> *<span class="title">tmp</span>;</span></span><br><span class="line">LIST_FOREACH(tmp, &amp;page_free_list, pp_link) &#123;</span><br><span class="line">	<span class="comment">//dosomething</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-二级页表地址变换机制"><a href="#3-二级页表地址变换机制" class="headerlink" title="3.二级页表地址变换机制"></a>3.二级页表地址变换机制</h3><p><img src="/img/OS/Lab2/address.png" alt="图片" title="address"></p>
+<p>虚拟地址是由<code>MIPS 4Kc</code>发出的<strong>“三段式”</strong></p>
+<p>而页表项内保存的是与物理地址有关的<strong>“两段式”</strong></p>
+<p>（差点混淆了T_T</p>
+<h2 id="三、实验体会"><a href="#三、实验体会" class="headerlink" title="三、实验体会"></a>三、实验体会</h2><p>我曾经<strong>5次</strong>认为自己学会了二级页表！！！但每次再打开指导书对着代码细细品阅时，总是”别有一番收获“</p>
+<p>所以Lab2教会我，要想真正学明白，要做到以下三点</p>
+<ul>
+<li><p>整体把握</p>
+<p>复习Lab2的时候，我在不同文件中苦苦穿梭，捋不清头绪。看完一篇<a target="_blank" rel="noopener" href="https://wokron.github.io/posts/buaa-os-lab2/">学长博客</a>之后，我惊叹于他对整体实验流程的把握，有感而发画下了实验难点中的overview图。在做Lab3的时候，我将会从更宏观的角度整体把握实验的运行逻辑与函数调度关系。</p>
+</li>
+<li><p>面面俱到</p>
+<p>眼光只局限与实验代码给出的<code>Your code here(x/x)</code>填空，只是水过地皮草不湿，永远无法理解实验究竟在干什么。仔细品阅实验代码，精妙的<code>TAILQ</code>宏函数实现，<code>passive_alloc</code>为虚拟地址申请物理页时严谨的<code>assert</code>，都能带给我们美的享受和思维的提升。</p>
+</li>
+<li><p>多多交流<br>和舍友交流对于自映射和二级页表机制的理解时，我惊讶地发现，自己自成一套严谨逻辑的理解，原来是离题万里的谬误。闭门造车只会带来思路的闭塞，交流互鉴方能辩（and 辨）出真理</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/04/10/OS/OS_Lab2/">http://seafoodfat1ger.github.io/2024/04/10/OS/OS_Lab2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/04/18/OO/OO_Unit2/" title="OO_Unit2"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OO_Unit2</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/27/OS/OS_Lab1/" title="OS_Lab1_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OS_Lab1_实验报告</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/19/OS/OS_Lab0/" title="OS_Lab0_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-19</div><div class="title">OS_Lab0_实验报告</div></div></a></div><div><a href="/2024/03/27/OS/OS_Lab1/" title="OS_Lab1_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-27</div><div class="title">OS_Lab1_实验报告</div></div></a></div><div><a href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">OS_Lab4_实验报告</div></div></a></div><div><a href="/2024/04/24/OS/OS_Lab3/" title="OS_Lab3_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-24</div><div class="title">OS_Lab3_实验报告</div></div></a></div><div><a href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-29</div><div class="title">OS_Lab5_实验报告</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lab2-%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">Lab2_实验报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">一、思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">Thinking 2.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-2"><span class="toc-number">1.1.2.</span> <span class="toc-text">Thinking 2.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-3"><span class="toc-number">1.1.3.</span> <span class="toc-text">Thinking 2.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-4"><span class="toc-number">1.1.4.</span> <span class="toc-text">Thinking 2.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-5"><span class="toc-number">1.1.5.</span> <span class="toc-text">Thinking 2.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-2-6"><span class="toc-number">1.1.6.</span> <span class="toc-text">Thinking 2.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-A-1"><span class="toc-number">1.1.7.</span> <span class="toc-text">Thinking A.1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E9%AA%8C%E9%9A%BE%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">二、实验难点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-overview"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.overview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%93%BE%E8%A1%A8%E5%AE%8F%E5%92%8Cpage%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.链表宏和page结构体的对应关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8C%E7%BA%A7%E9%A1%B5%E8%A1%A8%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E5%88%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.二级页表地址变换机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">三、实验体会</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit1"/></a><div class="content"><a class="title" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1">OO_Unit1</a><time datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUAA_OOP_2024_碎碎念总结"/></a><div class="content"><a class="title" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结">BUAA_OOP_2024_碎碎念总结</a><time datetime="2024-10-01T15:02:14.000Z" title="发表于 2024-10-01 23:02:14">2024-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit4"/></a><div class="content"><a class="title" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4">OO_Unit4</a><time datetime="2024-06-19T15:02:14.000Z" title="发表于 2024-06-19 23:02:14">2024-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

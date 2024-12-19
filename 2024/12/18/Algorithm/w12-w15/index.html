@@ -1,0 +1,759 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OO_Unit1 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="图算法图的概念𝑮&#x3D;&lt;𝑽,𝑬&gt;  相邻 边连接的两个顶点 Adj   关联  边和其连接的顶点  度    𝒅𝒆𝒈(𝒗)  𝒅𝒆𝒈(𝑮)&#x3D;$\Sigma$𝒗∈𝑽𝒅𝒆𝒈(𝒗)  无向图的度是边数的两倍   路径：顶点的序列  &lt;𝒗𝟎,𝒗𝟏,…,𝒗𝒌 &gt;称为𝒗𝟎到𝒗𝒌的路径 𝒗𝟎可达𝒗𝒌 简单路径，每个点不同 算法：【">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO_Unit1">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/12/18/Algorithm/w12-w15/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="图算法图的概念𝑮&#x3D;&lt;𝑽,𝑬&gt;  相邻 边连接的两个顶点 Adj   关联  边和其连接的顶点  度    𝒅𝒆𝒈(𝒗)  𝒅𝒆𝒈(𝑮)&#x3D;$\Sigma$𝒗∈𝑽𝒅𝒆𝒈(𝒗)  无向图的度是边数的两倍   路径：顶点的序列  &lt;𝒗𝟎,𝒗𝟏,…,𝒗𝒌 &gt;称为𝒗𝟎到𝒗𝒌的路径 𝒗𝟎可达𝒗𝒌 简单路径，每个点不同 算法：【">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-12-18T06:30:14.000Z">
+<meta property="article:modified_time" content="2024-12-19T03:42:53.251Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="Algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/12/18/Algorithm/w12-w15/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OO_Unit1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-19 11:42:53'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OO_Unit1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-19T03:42:53.251Z" title="更新于 2024-12-19 11:42:53">2024-12-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithm/">Algorithm</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OO_Unit1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="图算法"><a href="#图算法" class="headerlink" title="图算法"></a>图算法</h1><h2 id="图的概念"><a href="#图的概念" class="headerlink" title="图的概念"></a>图的概念</h2><p>𝑮=&lt;𝑽,𝑬&gt;</p>
+<ul>
+<li><p>相邻 边连接的两个顶点 Adj </p>
+</li>
+<li><p>关联  边和其连接的顶点</p>
+</li>
+<li><p>度  </p>
+<ul>
+<li><p>𝒅𝒆𝒈(𝒗)</p>
+</li>
+<li><p>𝒅𝒆𝒈(𝑮)=$\Sigma$𝒗∈𝑽𝒅𝒆𝒈(𝒗)</p>
+</li>
+<li>无向图的度是边数的两倍</li>
+</ul>
+</li>
+<li><p>路径：顶点的序列</p>
+<ul>
+<li>&lt;𝒗𝟎,𝒗𝟏,…,𝒗𝒌 &gt;称为𝒗𝟎到𝒗𝒌的路径</li>
+<li>𝒗𝟎可达𝒗𝒌</li>
+<li>简单路径，每个点不同</li>
+<li><strong>算法：【带权】【单源】最短路径问题</strong></li>
+</ul>
+</li>
+<li><p>环路</p>
+<ul>
+<li>𝒗𝟎=𝒗𝒌 至少一条边</li>
+<li>简单环路，每个点不同</li>
+<li><strong>算法：环路判定</strong></li>
+</ul>
+</li>
+<li><p>连通：任意对顶点互相可达</p>
+<ul>
+<li>连通分量：相互可达的顶点集</li>
+<li><strong>算法：强连通分量</strong></li>
+</ul>
+</li>
+<li><p>子图：V’和E‘都是图的子集</p>
+<ul>
+<li>生成子图 V‘=V E’是图的子集</li>
+<li><strong>算法：最小生成树</strong></li>
+</ul>
+</li>
+<li><p>树：<strong>连通、无环图</strong></p>
+<ul>
+<li><strong>算法：最小生成树</strong></li>
+<li>把图变成树结构 <strong>贪心</strong></li>
+<li>树的边数|V|-1</li>
+</ul>
+</li>
+<li><p>邻接链表  |𝑽|条链表的数组  每个顶点有一条链表，包含所有与其相邻的顶点</p>
+</li>
+<li><p>邻接矩阵   $A_{ij}$=1/0  |𝑽|×|𝑽|的矩阵</p>
+</li>
+</ul>
+<h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h4 id="辅助数组"><a href="#辅助数组" class="headerlink" title="辅助数组"></a>辅助数组</h4><ul>
+<li>color表示顶点状态<ul>
+<li>White:白色顶点u尚未被发现，发现后直接入队</li>
+<li>Black:黑色顶点u已被处理，无需再次入队</li>
+<li>Gray:灰色顶点u已加入队列，无需再次入队</li>
+</ul>
+</li>
+<li>pred:顶点u由pred[u]发现</li>
+<li>dist:顶点u距离源点s的距离</li>
+</ul>
+<p><img src="http://gitee.com/fat1ger/picbed/raw/master/img/image-20241215171047486.png"/></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215171107251.png" alt="image-20241215171107251"></p>
+<p>时间复杂度 $T=O(|V|+|E|)$</p>
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><h4 id="辅助数组-1"><a href="#辅助数组-1" class="headerlink" title="辅助数组"></a>辅助数组</h4><p>𝒅：顶点发现时刻（变成灰色的时刻） </p>
+<p>𝒇：顶点完成时刻（变成黑色的时刻）</p>
+<ul>
+<li>DFS(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215171007878.png" alt="image-20241215171007878"></p>
+<ul>
+<li>DFS-visit(𝑮,𝒗)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215170948784.png" alt="image-20241215170948784"></p>
+<p>时间复杂度 $T=O(|V|+|E|)$</p>
+<p>顶点$v$开销是$O=(1+|Adj[v]|)$</p>
+<p>$O(\Sigma_{v\in V}1+|Adj[v]|)=O(|V|+|E|)$</p>
+<h3 id="后向边-树边"><a href="#后向边-树边" class="headerlink" title="后向边/树边"></a>后向边/树边</h3><h4 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h4><ul>
+<li><p>深度优先树：顶点以前驱为祖先形成的树</p>
+</li>
+<li><p>树边：深度优先中的边</p>
+</li>
+<li><p>后向边：两顶点有祖先后代关系的非树边</p>
+</li>
+</ul>
+<h4 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h4><ul>
+<li>树边：在深度优先树中的边 </li>
+<li>前向边：不在深度优先树中，从祖先指向后代的边</li>
+<li>后向边：从后代指向祖先的边</li>
+<li>横向边：顶点不具有祖先后代关系的边</li>
+</ul>
+<p>（红色是优先树）</p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215173445942.png" alt="image-20241215173445942"></p>
+<ul>
+<li>对于无向图，非树边一定是后向边</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215170918102.png" alt="image-20241215170918102"></p>
+<h3 id="括号化定理"><a href="#括号化定理" class="headerlink" title="括号化定理"></a>括号化定理</h3><p>点𝒗发现时刻和结束时刻构成区间[𝒅[𝒗],𝒇[𝒗]] </p>
+<p>任意两点𝒗,𝒘必满足以下情况之一： </p>
+<ul>
+<li>[𝒅[𝒗],𝒇[𝒗]]包含[𝒅[𝒘],𝒇[𝒘]]，𝒘是𝒗的后代 </li>
+<li>[𝒅[𝒘],𝒇[𝒘]]包含[𝒅[𝒗],𝒇[𝒗]] ，𝒗是𝒘的后代</li>
+<li>完全不重合，𝒗和𝒘均不是对方后代</li>
+</ul>
+<p>证明：</p>
+<p>仅在区间内为灰色 </p>
+<p>白点必是灰点后代</p>
+<p>不妨设𝒅[𝒗]&lt;𝒅[𝒘]</p>
+<ul>
+<li><p>若𝒇[𝒗]&gt;𝒅[𝒘]：𝒘被发现时，𝒗为灰色,所以𝒘是𝒗的后代</p>
+</li>
+<li><p>若𝒇[𝒗]&lt;𝒅[𝒘]：𝒘被发现时，𝒗为黑色，所以𝒗和𝒘均不是对方后代</p>
+</li>
+</ul>
+<h3 id="白色路径定理"><a href="#白色路径定理" class="headerlink" title="白色路径定理"></a>白色路径定理</h3><p>在深度优先树中，顶点𝒗是𝒘的祖先⇔在𝒗被发现前，从𝒗到𝒘存在全为白色 顶点构成的路径</p>
+<p>⇒：由括号化定理，𝒗在发现之前，其后代全为白</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">【    白色     】</span><br><span class="line">vvvvvvvvvvvvvvv</span><br><span class="line">  wwwwwwwwww</span><br></pre></td></tr></table></figure>
+<p>⇐：𝒗刚发现时，路径上除𝒗以外的点仍都为白色，按深度优先搜索特点， 一定会搜索路径上的所有点</p>
+<h2 id="环路判定"><a href="#环路判定" class="headerlink" title="环路判定"></a>环路判定</h2><p>有向图存在环路⇐搜索时出现后向边</p>
+<p>不妨设环路上被搜索的第一个点为𝒖，𝒗是在环路上指向𝒖的点 </p>
+<p>𝒖可达𝒗，深度优先搜索可以搜索到𝒗</p>
+<p> 搜索𝒗时，由于𝒗指向𝒖，必能再次发现顶点𝒖 </p>
+<p>从后代搜索祖先，出现后向边</p>
+<ul>
+<li>DFS-Judge-Cycle(𝑮)</li>
+</ul>
+<p><img src="http://gitee.com/fat1ger/picbed/raw/master/img/image-20241215174247839.png" alt="image-20241215174247839"></p>
+<ul>
+<li>DFS-Visit-Judge-Cycle(𝑮,𝒗)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241215174355718.png" alt="image-20241215174355718"></p>
+<p>时间复杂度 $O(|V|+|E|)$</p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><p>拓扑序：对任意边(𝒖,𝒗)，𝒖在𝒗前面</p>
+<h3 id="BFS-1"><a href="#BFS-1" class="headerlink" title="BFS"></a>BFS</h3><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218141627154.png" alt="image-20241218141627154"></p>
+<p>时间复杂度$O(|V|+|E|)$</p>
+<h3 id="DFS-1"><a href="#DFS-1" class="headerlink" title="DFS"></a>DFS</h3><p>完成时刻逆序列</p>
+<ul>
+<li>Topological-Sort-DFS(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218143428946.png" alt="image-20241218143428946"></p>
+<ul>
+<li>DFS(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218143451719.png" alt="image-20241218143451719" style="zoom:50%;" /></p>
+<ul>
+<li>DFS-Visit(𝑮,𝒗)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218143505838.png" alt="image-20241218143505838" style="zoom:50%;" /></p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>对任意边(𝒖,𝒗)，完成时刻满足：𝒇(𝒖)&gt;𝒇(𝒗)</p>
+<p>证明：设当前顶点为𝒖，搜索顶点𝒗 </p>
+<ul>
+<li>若𝒗为白色，𝒗是𝒖的后代，𝒇(𝒖) &gt;𝒇(𝒗)（括号化定理）</li>
+<li>若𝒗为黑色，𝒗已经完成，𝒖尚未完成，𝒇(𝒖) &gt;𝒇(𝒗)</li>
+<li>若𝒗是灰色？不可能！因为有向无环图不存在后向边</li>
+</ul>
+<h2 id="强连通分量"><a href="#强连通分量" class="headerlink" title="强连通分量"></a>强连通分量</h2><ul>
+<li>连通分量：相互可达的顶点集</li>
+<li>强连通分量：<ul>
+<li>一个强连通分量是顶点的子集</li>
+<li>强连通分量中任意两点相互可达</li>
+<li>满足最大性：加入新顶点，不保证相互可达</li>
+</ul>
+</li>
+</ul>
+<h3 id="算法-2"><a href="#算法-2" class="headerlink" title="算法"></a>算法</h3><h4 id="算法框架"><a href="#算法框架" class="headerlink" title="算法框架"></a>算法框架</h4><p>进行两次DFS</p>
+<ul>
+<li>把边反向，得到反向图$G^R$</li>
+<li>（反向图）在$G^R$上执行DFS，得到顶点完成时刻顺序$L$</li>
+<li>（原始图）在$G$上<strong>按$L$逆序</strong>执行DFS，得到强连通分量</li>
+</ul>
+<ul>
+<li>Strongly-Connected-Component(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218144650157.png" alt="image-20241218144650157"></p>
+<ul>
+<li>DFS(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218143451719.png" alt="image-20241218143451719" style="zoom:50%;" /></p>
+<ul>
+<li>DFS-Visit(𝑮,𝒗)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218143505838.png" alt="image-20241218143505838" style="zoom:50%;" /></p>
+<p>时间复杂度$O(V+E)$</p>
+<h3 id="证明-1"><a href="#证明-1" class="headerlink" title="证明"></a>证明</h3><p>强连通分量图$G^{SCC}$：把强连通分量看作一个点，得到有向图</p>
+<p>$G^{SCC}$一定是有向无环图</p>
+<p>$SCC_{sink}$：$G^{SCC}$中出度为0的点</p>
+<ul>
+<li>$G^{SCC}$中存在至少一个$SCC_{sink}$</li>
+<li>删除$SCC_{sink}$，会产生新的$SCC_{sink}$</li>
+</ul>
+<p>通过按𝑳逆序执行DFS实现</p>
+<p>第2次DFS按照$SCC_{sink}$的顺序搜索</p>
+<p>每次搜索恰好访问该$SCC$的所有点</p>
+<p>给定反向图$G^R$，存在边(𝒖,𝒗)，𝒖∈𝑺𝑪𝑪𝟏，𝒗∈𝑺𝑪𝑪𝟐 </p>
+<ul>
+<li>若先搜索𝒖，会从𝒖搜索𝒗，则𝒇(𝒗) &lt;𝒇(𝒖) </li>
+<li>若先搜索𝒗，𝒗搜索完成才开始搜索𝒖，则𝒇(𝒗) &lt;𝒇(𝒖)</li>
+</ul>
+<p>所以按𝑳的逆序，总是先搜索𝒖(原图出度为0)，符合𝑺𝑪𝑪𝒔𝒊𝒏𝒌的顺序</p>
+<p>强连通分量内，顶点相互可达，DFS可以访问到该𝑺𝑪𝑪所有点</p>
+<p>𝑺𝑪𝑪𝒔𝒊𝒏𝒌出度为0，DFS不会访问该𝑺𝑪𝑪以外的点</p>
+<h2 id="Prim-最小生成树"><a href="#Prim-最小生成树" class="headerlink" title="Prim 最小生成树"></a>Prim 最小生成树</h2><ul>
+<li><p>子图：V’和E‘都是图的子集</p>
+</li>
+<li><p>生成子图：V‘=V E’是图的子集</p>
+</li>
+<li>生成树：一个无向图中的连通、无环的生成子图</li>
+</ul>
+<p>权重最小的生成树可能不唯一</p>
+<ul>
+<li><p>新建一个空边集𝑨，边集𝑨可逐步扩展为最小生成树 </p>
+</li>
+<li><p>每次向边集𝑨中新增加一条边<strong>(无环、添加一条轻边)</strong></p>
+<ul>
+<li>需保证边集𝑨仍是一个无环图</li>
+<li>需保证边集𝑨仍是最小生成树的子集</li>
+</ul>
+</li>
+</ul>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><strong>安全边</strong></p>
+<p>若每次向边集𝑨中新增安全边，可保证边集𝑨是最小生成树的子集</p>
+<ul>
+<li>𝑨是某棵最小生成树𝑻边的子集，𝑨⊆𝑻 </li>
+<li>𝑨∪{(𝒖,𝒗)}⊆𝑻，则称(𝒖,𝒗)是𝑨的安全边</li>
+</ul>
+<p><strong>割</strong></p>
+<p>图𝑮=&lt;𝑽,𝑬&gt;是一个连通无向图，割(𝑺,𝑽−𝑺)将图𝑮的顶点集𝑽划分为两部分</p>
+<p><strong>横跨</strong></p>
+<p> 给定割(𝑺,𝑽−𝑺) 和边(𝒖,𝒗)，𝒖∈𝑺, 𝒗∈𝑽−𝑺，称边(𝒖,𝒗)横跨割(𝑺,𝑽−𝑺)</p>
+<p><strong>轻边</strong>（贪心）</p>
+<p>横跨割的所有边中，权重最小的称为横跨这个割的一条轻边</p>
+<p><strong>不妨害</strong></p>
+<p>如果一个边集𝑨中没有边横跨某割，则称该割不妨害边集𝑨</p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218162307602.png" alt="image-20241218162307602"></p>
+<h3 id="安全边辨识定理"><a href="#安全边辨识定理" class="headerlink" title="安全边辨识定理"></a>安全边辨识定理</h3><p>给定图𝑮=&lt;𝑽,𝑬&gt;是一个带权的连通无向图，令𝑨为边集𝑬的一个 子集，且𝑨包含在图𝑮的某棵最小生成树中 </p>
+<ul>
+<li>若割(𝑺,𝑽−𝑺)是图𝑮中不妨害边集𝑨的任意割，且(𝒖,𝒗)是横跨该割的<strong>轻边</strong> </li>
+<li>则对于边集𝑨，边(𝒖,𝒗)是其安全边</li>
+</ul>
+<p>证明：</p>
+<p>若 (𝒖,𝒗) ∈𝑻（最小生成树），由于𝑨⊆𝑻，则𝑨∪{(𝒖,𝒗)}⊆𝑻，由安全边定义可证  </p>
+<p>若 (𝒖,𝒗) ∉𝑻，则𝑻中必存在𝒖到𝒗的路径</p>
+<ul>
+<li>不妨设路径𝑷中，横跨割(𝑺,𝑽−𝑺)的一条边为(𝒙,𝒚)</li>
+<li>边𝒖,𝒗是横跨割的轻边，所以𝒘(𝒖,𝒗)≤𝒘(𝒙,𝒚)</li>
+<li>将边(𝒖,𝒗)加入到𝑻中会形成环路,再去掉边(𝒙,𝒚)会形成另一棵树𝑻′</li>
+<li>𝒘(𝑻′) =𝒘(𝑻)+𝒘(𝒖,𝒗)−𝒘(𝒙,𝒚)≤𝒘(𝑻),𝑻′也是最小生成树</li>
+<li>𝑨∪{(𝒖,𝒗)}⊆𝑻′，边𝒖,𝒗是安全边</li>
+</ul>
+<h3 id="算法-3"><a href="#算法-3" class="headerlink" title="算法"></a>算法</h3><h4 id="算法框架-1"><a href="#算法框架-1" class="headerlink" title="算法框架"></a>算法框架</h4><ul>
+<li>选择任意一个顶点，作为生成树的起始顶点 </li>
+<li>保持边集𝑨始终为一棵树，选择割(𝑽𝑨,𝑽−𝑽𝑨) </li>
+<li>选择横跨割(𝑽𝑨,𝑽−𝑽𝑨)的轻边，添加到边集𝑨中 </li>
+<li>重复步骤2和步骤3，直至覆盖所有顶点</li>
+</ul>
+<h4 id="辅助数组-2"><a href="#辅助数组-2" class="headerlink" title="辅助数组"></a>辅助数组</h4><ul>
+<li>𝒄𝒐𝒍𝒐𝒓表示顶点状态 <ul>
+<li>黑色顶点𝒖已覆盖， 𝒖∈𝑽𝑨</li>
+<li>白色顶点𝒖未覆盖， 𝒖 ∈𝑽−𝑽𝑨</li>
+</ul>
+</li>
+<li>𝒅𝒊𝒔𝒕记录横跨(𝑽𝑨,𝑽−𝑽𝑨)边的权重<ul>
+<li>顶点集𝑽𝑨到顶点𝒖的最短距离 𝒅𝒊𝒔𝒕[𝒖]=𝐦𝐢𝐧{𝒘(𝒙, 𝒖)},∀𝒙 ∈ 𝑽𝑨</li>
+<li>轻边：𝐦𝐢𝐧{𝒅𝒊𝒔𝒕[𝒖]} ,∀𝒖∈𝑽−𝑽𝑨 </li>
+</ul>
+</li>
+<li>𝒑𝒓𝒆𝒅表示前驱顶点 <ul>
+<li>(𝒑𝒓𝒆𝒅[𝒖] ,𝒖)为最小生成树的边 </li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218185410668.png" alt="image-20241218185410668"></p>
+<h4 id="原始算法"><a href="#原始算法" class="headerlink" title="原始算法"></a>原始算法</h4><ul>
+<li>MST-Prim(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218194038582.png" alt="image-20241218194038582"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218194547141.png" alt="image-20241218194547141"></p>
+<p>时间复杂度$O(V^2)$</p>
+<h4 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h4><p>二叉堆</p>
+<p>Q.Insert()</p>
+<p>Q.ExtractMin()</p>
+<p>Q.DecreaseKey() </p>
+<ul>
+<li>MST-Prim-PriQueue(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218195837805.png" alt="image-20241218195837805"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218200346898.png" alt="image-20241218200346898"></p>
+<p>时间复杂度$O(|E|\cdot log|V|)$</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A---2----B</span><br><span class="line">|		 |</span><br><span class="line">2		 1</span><br><span class="line">|		 |</span><br><span class="line">C---1----D</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>V</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>color</td>
+<td>B</td>
+<td>B</td>
+<td>W</td>
+<td>W</td>
+</tr>
+<tr>
+<td>pred</td>
+<td>N</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+</tr>
+<tr>
+<td>dist</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这里 for循环需要控制不是black 是不能让AB边的这个dist被BD覆盖掉</p>
+<h2 id="Kruskal-最小生成树"><a href="#Kruskal-最小生成树" class="headerlink" title="Kruskal 最小生成树"></a>Kruskal 最小生成树</h2><ul>
+<li><p>选边时避免成环 </p>
+</li>
+<li><p>每次选择当前权重最小边</p>
+</li>
+</ul>
+<h3 id="证明-2"><a href="#证明-2" class="headerlink" title="证明"></a>证明</h3><p>不妨设当前已选边集为𝑨，下一条选择的边是(𝒊,𝒈) </p>
+<p>已选边集𝑨把图分成为若干棵子树，其中 (𝑽′, 𝑬′)是包含顶点𝒊的子树</p>
+<p>构造割(𝑽′,𝑽−𝑽′)，𝑨中的边不会横跨(𝑽′,𝑽−𝑽′)</p>
+<p>(𝒊,𝒈)：</p>
+<ul>
+<li><p>横跨割(𝑽′,𝑽−𝑽′)的最小权重边</p>
+</li>
+<li><p>关于割(𝑽′,𝑽−𝑽′)轻边 &amp;&amp; 割(𝑽′,𝑽−𝑽′)不妨害边集𝑨</p>
+</li>
+<li>安全边</li>
+</ul>
+<h3 id="算法-4"><a href="#算法-4" class="headerlink" title="算法"></a>算法</h3><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218201548915.png" alt="image-20241218201548915"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218202558403.png" alt="image-20241218202558403"></p>
+<p>时间复杂度$O(|E|log|E|+|E|log|V|)$</p>
+<h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><p>树边由子结点指向父结点，根结点有一条指向自身的边</p>
+<ul>
+<li>Create-Set(𝒙)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218201839147.png" alt="image-20241218201839147"></p>
+<p>时间复杂度$O(1)$</p>
+<ul>
+<li>Find-Set(𝒙)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218201946466.png" alt="image-20241218201946466"></p>
+<p>时间复杂度$O(h)=O(log|V|)$，h是树的高度</p>
+<ul>
+<li>Union-Set(𝒙)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218202136518.png" alt="image-20241218202136518"></p>
+<p>时间复杂度$O(h)=O(log|V|)$，h是树的高度</p>
+<p>归纳法证明：</p>
+<p>$|V|\ge 2^h$即$h&lt;log|V|$</p>
+<ul>
+<li><p>只有一个顶点，规模|𝑽|=𝟏，高度𝒉=𝟎，显然$1\ge2^h$</p>
+</li>
+<li><p>假设：任意不相交集合𝒎，高度𝒉𝒎和规模𝑽𝒎满足𝑽𝒎≥$2^{h_m}$</p>
+</li>
+<li><p>两不相交集合𝒂,𝒃拟做合并，设合并产生的新不相交集合为c</p>
+<ul>
+<li>若𝒉𝒂 ≠𝒉𝒃：𝑽𝒄 =𝑽𝒂+𝑽𝒃 ≥$2^{h_a}$+$2^{h_b}$≥$2^{max{h_a,h_b}}$=$2^{h_c}$</li>
+<li>若𝒉𝒂 =𝒉𝒃：𝑽𝒄 =𝑽𝒂+𝑽𝒃 ≥$2^{h_a}$+$2^{h_b}$≥$2^{h_a+1}$=$2^{h_c}$</li>
+</ul>
+</li>
+</ul>
+<h2 id="BFS-单源最短路径问题"><a href="#BFS-单源最短路径问题" class="headerlink" title="BFS 单源最短路径问题"></a>BFS 单源最短路径问题</h2><p><strong>适用范围：无边图</strong></p>
+<p>时间复杂度$O(|V|+|E|)$</p>
+<h2 id="Dijkstra-单源最短路径问题"><a href="#Dijkstra-单源最短路径问题" class="headerlink" title="Dijkstra 单源最短路径问题"></a>Dijkstra 单源最短路径问题</h2><p><strong>适用范围：边权为正的图</strong></p>
+<p><strong>松弛次数：$|E|$</strong></p>
+<h3 id="算法-5"><a href="#算法-5" class="headerlink" title="算法"></a>算法</h3><h4 id="辅助数组-3"><a href="#辅助数组-3" class="headerlink" title="辅助数组"></a>辅助数组</h4><ul>
+<li>𝜹(𝒔,𝒖)表示真实最短距离</li>
+<li>𝒅𝒊𝒔𝒕表示距离上界（估计距离）<ul>
+<li>源点𝒔，𝒅𝒊𝒔𝒕[𝒔] =𝟎；其他顶点𝒖，𝒅𝒊𝒔𝒕[𝒖]初始化为∞</li>
+<li>𝒅𝒊𝒔𝒕[𝒖]：源点𝒔到顶点𝒖的距离上界，𝜹(𝒔,𝒖)≤𝒅𝒊𝒔𝒕[𝒖]</li>
+</ul>
+</li>
+<li>𝒄𝒐𝒍𝒐𝒓表示顶点状态<ul>
+<li>黑色：到顶点𝒖最短路已被确定</li>
+<li>白色：到顶点𝒖最短路尚未确定</li>
+</ul>
+</li>
+<li>𝒑𝒓𝒆𝒅表示前驱顶点<ul>
+<li>(𝒑𝒓𝒆𝒅[𝒖] ,𝒖)为最短路径上的边</li>
+</ul>
+</li>
+</ul>
+<h4 id="算法框架-2"><a href="#算法框架-2" class="headerlink" title="算法框架"></a>算法框架</h4><ul>
+<li>新建空的黑色顶点集$V_A$</li>
+<li>选择一个白色顶点变为黑色（到该顶点最短路被确定）<ul>
+<li>选择点：<ul>
+<li>对每个白色顶点𝒚∈ 𝑽−𝑽𝑨，都有一个估计距离𝒅𝒊𝒔𝒕[𝒚]</li>
+<li>选择估计距离最小的顶点𝒗，𝒅𝒊𝒔𝒕[𝒗]≤𝒅𝒊𝒔𝒕[𝒚] , 𝒗,𝒚 ∈ 𝑽−𝑽𝑨</li>
+</ul>
+</li>
+<li>更新每顶点的估计距离：<ul>
+<li>当前到顶点𝒗的最短路径：&lt;𝒔,𝒘,𝒗&gt;，距离为𝒅𝒊𝒔𝒕[𝒗]</li>
+<li>通过顶点𝒖的新路径：&lt;𝒔,…,𝒖,𝒗&gt;，距离为𝒅𝒊𝒔𝒕[𝒖]+𝒘(𝒖,𝒗)</li>
+<li>如果新距离更小，更新𝒅𝒊𝒔𝒕[𝒗]：𝒅𝒊𝒔𝒕[𝒗]=𝒅𝒊𝒔𝒕[𝒖]+𝒘(𝒖,𝒗)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>重复步骤2，直至所有顶点均为黑色</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218221319444.png" alt="image-20241218221319444"></p>
+<h4 id="原始算法-1"><a href="#原始算法-1" class="headerlink" title="原始算法"></a>原始算法</h4><ul>
+<li>Dijkstra(𝑮,𝒔）</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218221614208.png" alt="image-20241218221614208"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218221643278.png" alt="image-20241218221643278"></p>
+<p>时间复杂度$O(|V|^2)$</p>
+<p>O(|E|\cdot log|V|)$</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A---2----B</span><br><span class="line">|		 |</span><br><span class="line">2		 1</span><br><span class="line">|		 |</span><br><span class="line">C---1----D</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>V</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>color</td>
+<td>B</td>
+<td>B</td>
+<td>W</td>
+<td>W</td>
+</tr>
+<tr>
+<td>pred</td>
+<td>N</td>
+<td>A</td>
+<td>A</td>
+<td>B</td>
+</tr>
+<tr>
+<td>dist</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这里 for循环不需要控制不是black 是因为BD回边计算 肯定会更大 无法贪心</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for 循环里 不管u是不是black的原因 我认为是贪心导致的 black一定是最小 松弛会失效</span><br><span class="line">a--2--b</span><br><span class="line">\     |</span><br><span class="line">  1   |</span><br><span class="line">   \  1</span><br><span class="line">    c |</span><br><span class="line">    | |</span><br><span class="line">    4 |</span><br><span class="line">    | |</span><br><span class="line">    d/</span><br></pre></td></tr></table></figure>
+<h4 id="优先队列-1"><a href="#优先队列-1" class="headerlink" title="优先队列"></a>优先队列</h4><ul>
+<li>Dijkstra-PriQueue(𝑮,𝒔)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218221851942.png" alt="image-20241218221851942"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218222009038.png" alt="image-20241218222009038"></p>
+<p>时间复杂度$O(|E|\cdot log|V|)$</p>
+<h3 id="证明-3"><a href="#证明-3" class="headerlink" title="证明"></a>证明</h3><p>顶点𝒖被添加到𝑽𝑨时，𝒅𝒊𝒔𝒕[𝒖]=𝜹(𝒔,𝒖)</p>
+<p><strong>反证法</strong>：𝒅𝒊𝒔𝒕[𝒖]  ≠𝜹(𝒔,𝒖)</p>
+<p>由于𝒅𝒊𝒔𝒕[𝒖]作为𝜹(𝒔,𝒖)的上界，故𝒅𝒊𝒔𝒕[𝒖] &gt; 𝜹(𝒔,𝒖)</p>
+<p>应存在一条长度为𝜹(𝒔,𝒖)的从𝒔到𝒖的最短路径&lt;𝒔,…,𝒙,𝒚,…,𝒖&gt;</p>
+<p>其中边(𝒙, 𝒚) 横跨&lt;𝑽𝑨,𝑽−𝑽𝑨 &gt;，𝒙∈𝑽𝑨,𝒚∈𝑽−𝑽𝑨</p>
+<p>算法令𝑽𝑨 中的顶点满足：𝒅𝒊𝒔𝒕[𝒙] =𝜹(𝒔, 𝒙),𝒙 ∈ 𝑽𝑨</p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241218222804238.png" alt="image-20241218222804238" style="zoom:50%;" /></p>
+<p> &lt;𝒔,…,𝒙,𝒚 &gt;是最短路径&lt;𝒔,…,𝒙,𝒚,…,𝒖&gt;的子路径</p>
+<ul>
+<li>𝜹(𝒔, 𝒚) =𝜹(𝒔, 𝒙)+𝒘(𝒙, 𝒚)=𝒅𝒊𝒔𝒕[𝒙] +𝒘(𝒙, 𝒚) （公式1） </li>
+</ul>
+<p>算法对顶点𝒙出发的所有边（包括边(𝒙,𝒚)）已进行松弛操作</p>
+<ul>
+<li>𝒅𝒊𝒔𝒕[𝒚] ≤𝒅𝒊𝒔𝒕[𝒙] +𝒘(𝒙,𝒚)（公式2） </li>
+</ul>
+<p>联立得𝒅𝒊𝒔𝒕[𝒚] =𝜹(𝒔, 𝒚) </p>
+<p>最短路径&lt;𝒔,…,𝒙,𝒚,…,𝒖&gt;中， 𝒚出现在𝒖之前</p>
+<ul>
+<li>𝒅𝒊𝒔𝒕[𝒖] &gt;𝜹(𝒔, 𝒖)≥𝜹(𝒔, 𝒚) = 𝒅𝒊𝒔𝒕[𝒚]  ，𝒖 ≠𝒚， 𝒖不应是下一个被添加顶点</li>
+</ul>
+<p>产生矛盾，原结论成立</p>
+<h2 id="Bellman-Ford-单源最短路径问题"><a href="#Bellman-Ford-单源最短路径问题" class="headerlink" title="Bellman-Ford 单源最短路径问题"></a>Bellman-Ford 单源最短路径问题</h2><p><strong>适用范围：边权可以为负</strong></p>
+<p>若源点𝒔无可达负环，则存在源点𝒔的单源最短路径</p>
+<h3 id="算法-6"><a href="#算法-6" class="headerlink" title="算法"></a>算法</h3><h4 id="辅助数组-4"><a href="#辅助数组-4" class="headerlink" title="辅助数组"></a>辅助数组</h4><ul>
+<li>𝒅𝒊𝒔𝒕表示距离上界（估计距离）<ul>
+<li>源点𝒔，𝒅𝒊𝒔𝒕[𝒔] =𝟎；其他顶点𝒖，𝒅𝒊𝒔𝒕[𝒖]初始化为∞</li>
+<li>𝒅𝒊𝒔𝒕[𝒖]：源点𝒔到顶点𝒖的距离上界，𝜹(𝒔,𝒖)≤𝒅𝒊𝒔𝒕[𝒖]</li>
+</ul>
+</li>
+<li>𝒑𝒓𝒆𝒅表示前驱顶点<ul>
+<li>(𝒑𝒓𝒆𝒅[𝒖] ,𝒖)为最短路径上的边</li>
+</ul>
+</li>
+</ul>
+<h4 id="算法-7"><a href="#算法-7" class="headerlink" title="算法"></a>算法</h4><ul>
+<li>Bellman-Ford(𝑮,𝒔)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219104816516.png" alt="image-20241219104816516"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219104828716.png" alt="image-20241219104828716"></p>
+<p>若第|𝑽|轮仍松弛成功，存在源点𝒔可达的负环</p>
+<p>时间复杂度 $O(|E||V|)$</p>
+<h2 id="Floyd-所有点对最短路径问题"><a href="#Floyd-所有点对最短路径问题" class="headerlink" title="Floyd 所有点对最短路径问题"></a>Floyd 所有点对最短路径问题</h2><h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p><strong>递归关系：</strong></p>
+<p>$D[k,i,j]$：可从前𝒌个点选点经过时，𝒊到𝒋的最短距离</p>
+<ul>
+<li>如果不选第𝒌个点经过，$D[k,i,j]=D[k-1,i,j]$</li>
+<li>如果选第𝒌个点经过，$D[k,i,j]=D[k-1,i,k]+D[k-1,k,j]$</li>
+</ul>
+<p>$D[k,i,j]=min{D[k-1,i,j],D[k-1,i,k]+D[k-1,k,j]}$</p>
+<p><strong>初始化：</strong></p>
+<ul>
+<li>$D[0,i,i]=0$起终点重合，路径长度为0 </li>
+<li>$D[0,i,j]=e[i,j]$任意两点直达距离为边权</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219111408599.png" alt="image-20241219111408599" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219111352859.png" alt="image-20241219111352859" style="zoom:50%;" /></p>
+<p>$D_k[i,j]=\min{D_{k-1}[i,j],D_{k-1}[i,k]+D_{k-1}[k,j]}$</p>
+<p><strong>追踪数组：</strong></p>
+<script type="math/tex; mode=display">
+Rec=
+\begin{cases}
+0 ,D_{k}[i,j]=D_{k-1}[i,j]\\
+k ,D_{k}[i,j]=D_{k-1}[i,k]+D_{k-1}[k,j](\text{经过中间点})& 
+\end{cases}</script><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219112456564.png" alt="image-20241219112456564"></p>
+<h3 id="算法-8"><a href="#算法-8" class="headerlink" title="算法"></a>算法</h3><ul>
+<li>All-Pairs-Shortest-Paths(𝑮)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219114014158.png" alt="image-20241219114014158"></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219114055664.png" alt="image-20241219114055664"></p>
+<ul>
+<li>Find-Path(𝑹𝒆𝒄,𝒖,𝒗)</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241219114212929.png" alt="image-20241219114212929"></p>
+<p>时间复杂度$O(|V|^3)$</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/12/18/Algorithm/w12-w15/">http://seafoodfat1ger.github.io/2024/12/18/Algorithm/w12-w15/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Algorithm/">Algorithm</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUAA_OOP_2024_碎碎念总结</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">图算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">图的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BFS"><span class="toc-number">1.2.</span> <span class="toc-text">BFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">辅助数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DFS"><span class="toc-number">1.3.</span> <span class="toc-text">DFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84-1"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">辅助数组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%90%91%E8%BE%B9-%E6%A0%91%E8%BE%B9"><span class="toc-number">1.3.2.</span> <span class="toc-text">后向边&#x2F;树边</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%90%91%E5%9B%BE"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">无向图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E5%90%91%E5%9B%BE"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">有向图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%AC%E5%8F%B7%E5%8C%96%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">括号化定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BD%E8%89%B2%E8%B7%AF%E5%BE%84%E5%AE%9A%E7%90%86"><span class="toc-number">1.3.4.</span> <span class="toc-text">白色路径定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E8%B7%AF%E5%88%A4%E5%AE%9A"><span class="toc-number">1.4.</span> <span class="toc-text">环路判定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="toc-number">1.5.</span> <span class="toc-text">拓扑排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BFS-1"><span class="toc-number">1.5.1.</span> <span class="toc-text">BFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DFS-1"><span class="toc-number">1.5.2.</span> <span class="toc-text">DFS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%98%8E"><span class="toc-number">1.5.3.</span> <span class="toc-text">证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F"><span class="toc-number">1.6.</span> <span class="toc-text">强连通分量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-2"><span class="toc-number">1.6.1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%A1%86%E6%9E%B6"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">算法框架</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%98%8E-1"><span class="toc-number">1.6.2.</span> <span class="toc-text">证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prim-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.7.</span> <span class="toc-text">Prim 最小生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.7.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E8%BE%B9%E8%BE%A8%E8%AF%86%E5%AE%9A%E7%90%86"><span class="toc-number">1.7.2.</span> <span class="toc-text">安全边辨识定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-3"><span class="toc-number">1.7.3.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%A1%86%E6%9E%B6-1"><span class="toc-number">1.7.3.1.</span> <span class="toc-text">算法框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84-2"><span class="toc-number">1.7.3.2.</span> <span class="toc-text">辅助数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E7%AE%97%E6%B3%95"><span class="toc-number">1.7.3.3.</span> <span class="toc-text">原始算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97"><span class="toc-number">1.7.3.4.</span> <span class="toc-text">优先队列</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kruskal-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.8.</span> <span class="toc-text">Kruskal 最小生成树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%98%8E-2"><span class="toc-number">1.8.1.</span> <span class="toc-text">证明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-4"><span class="toc-number">1.8.2.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-number">1.8.2.1.</span> <span class="toc-text">并查集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BFS-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.9.</span> <span class="toc-text">BFS 单源最短路径问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.10.</span> <span class="toc-text">Dijkstra 单源最短路径问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-5"><span class="toc-number">1.10.1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84-3"><span class="toc-number">1.10.1.1.</span> <span class="toc-text">辅助数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%A1%86%E6%9E%B6-2"><span class="toc-number">1.10.1.2.</span> <span class="toc-text">算法框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E7%AE%97%E6%B3%95-1"><span class="toc-number">1.10.1.3.</span> <span class="toc-text">原始算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97-1"><span class="toc-number">1.10.1.4.</span> <span class="toc-text">优先队列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%98%8E-3"><span class="toc-number">1.10.2.</span> <span class="toc-text">证明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bellman-Ford-%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.11.</span> <span class="toc-text">Bellman-Ford 单源最短路径问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-6"><span class="toc-number">1.11.1.</span> <span class="toc-text">算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%85%E5%8A%A9%E6%95%B0%E7%BB%84-4"><span class="toc-number">1.11.1.1.</span> <span class="toc-text">辅助数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-7"><span class="toc-number">1.11.1.2.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Floyd-%E6%89%80%E6%9C%89%E7%82%B9%E5%AF%B9%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.12.</span> <span class="toc-text">Floyd 所有点对最短路径问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">1.12.1.</span> <span class="toc-text">动态规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95-8"><span class="toc-number">1.12.2.</span> <span class="toc-text">算法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit1"/></a><div class="content"><a class="title" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1">OO_Unit1</a><time datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUAA_OOP_2024_碎碎念总结"/></a><div class="content"><a class="title" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结">BUAA_OOP_2024_碎碎念总结</a><time datetime="2024-10-01T15:02:14.000Z" title="发表于 2024-10-01 23:02:14">2024-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit4"/></a><div class="content"><a class="title" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4">OO_Unit4</a><time datetime="2024-06-19T15:02:14.000Z" title="发表于 2024-06-19 23:02:14">2024-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>OO_Unit4 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="OO_Unit4[TOC] 一、正向建模与开发hw13刚开始并没选择正向建模  本单元理想的正向建模与开发belike: 需求分析：等等党等2天，将指导书、讨论区、微信群的需求整合起来，形成图书管理系统的需求文档 类图建模：根据需求文档，大致划分需要的类，预期类的属性和方法以及类与类之间的关系，并大体粗略绘制类图 顺序图建模：结合类图分析，绘制顺序图以描述对象之间的交互 状态图建模：绘制状态图，梳">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OO_Unit4">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/06/19/OO/OO_Unit4/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="OO_Unit4[TOC] 一、正向建模与开发hw13刚开始并没选择正向建模  本单元理想的正向建模与开发belike: 需求分析：等等党等2天，将指导书、讨论区、微信群的需求整合起来，形成图书管理系统的需求文档 类图建模：根据需求文档，大致划分需要的类，预期类的属性和方法以及类与类之间的关系，并大体粗略绘制类图 顺序图建模：结合类图分析，绘制顺序图以描述对象之间的交互 状态图建模：绘制状态图，梳">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-06-19T15:02:14.000Z">
+<meta property="article:modified_time" content="2024-12-15T05:17:35.405Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="OO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/06/19/OO/OO_Unit4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OO_Unit4',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-15 13:17:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OO_Unit4</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-19T15:02:14.000Z" title="发表于 2024-06-19 23:02:14">2024-06-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-15T05:17:35.405Z" title="更新于 2024-12-15 13:17:35">2024-12-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/OO/">OO</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OO_Unit4"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="OO-Unit4"><a href="#OO-Unit4" class="headerlink" title="OO_Unit4"></a>OO_Unit4</h1><p>[TOC]</p>
+<h2 id="一、正向建模与开发"><a href="#一、正向建模与开发" class="headerlink" title="一、正向建模与开发"></a>一、正向建模与开发</h2><p><del>hw13刚开始并没选择正向建模</del>  本单元理想的正向建模与开发belike:</p>
+<p><strong>需求分析</strong>：等等党等2天，将指导书、讨论区、微信群的需求整合起来，形成图书管理系统的需求文档</p>
+<p><strong>类图建模</strong>：根据需求文档，大致划分需要的类，预期类的属性和方法以及类与类之间的关系，并大体粗略绘制类图</p>
+<p><strong>顺序图建模</strong>：结合类图分析，绘制顺序图以描述对象之间的交互</p>
+<p><strong>状态图建模</strong>：绘制状态图，梳理对象之间的交互关系，对象之间的消息传递顺序</p>
+<p><strong>设计与实现</strong>：基于上述模型正向开发，进行代码实现，并对模型图进行调整与修改</p>
+<p><strong>验证与测试</strong>：通过跑测评机和手搓特殊数据确保代码正确性，通过肉眼反复比对类图和代码是否实现一致</p>
+<p>在后续我感受到了正向建模开发的<del>唯一</del>好处，有效减少了开发迭代过程中的工作量，可以通过先在上一单元的UML类图进行修改，然后再实现代码，前后变化一目了然的。</p>
+<h2 id="二、第四单元架构设计"><a href="#二、第四单元架构设计" class="headerlink" title="二、第四单元架构设计"></a>二、第四单元架构设计</h2><h3 id="1-类图"><a href="#1-类图" class="headerlink" title="1.类图"></a>1.类图</h3><p><img src="E:\Myblog\blog\source\img\OO\Unit4\Main.png" alt=""></p>
+<p>你猜为什么没有顺序图和状态图?(太水了，懒得喷.jpg)(｡•̀ᴗ-)✧</p>
+<h3 id="2-架构分析"><a href="#2-架构分析" class="headerlink" title="2.架构分析"></a>2.架构分析</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><p><code>Library</code> 图书馆：储存所有在架书籍，储存所有有过操作的用户，分发请求</p>
+<p><code>BorrowLibrarian</code> 借阅处：储存所有被扣书籍，处理<code>borrow</code>、<code>return</code>、<code>renew</code></p>
+<p><code>OrderLibrarian</code>预约处：储存所有预定书籍，处理<code>order</code>、<code>pick</code></p>
+<p><code>ArrangeLibrarian</code> 中转站：储存所有<code>accept</code>但未分配书籍的请求，处理开闭关的书籍整理移动</p>
+<p><code>DriftLibrarian</code> 图书漂流角：储存所有野书，处理<code>donate</code></p>
+<p><code>Machine</code>查询机器：处理<code>query</code></p>
+<h4 id="开闭关书籍整理移动流程"><a href="#开闭关书籍整理移动流程" class="headerlink" title="开闭关书籍整理移动流程"></a>开闭关书籍整理移动流程</h4><p>为了操作的简便性，只在夜晚进行书籍移动，其实可以在开馆的时候对处理完的过期预约，进行再次分配，但我是懒狗(ﾟДﾟ≡ﾟдﾟ)!?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (command.getCmd().equals(<span class="string">&quot;OPEN&quot;</span>)) &#123;</span><br><span class="line">    <span class="comment">//更新用户信用积分</span></span><br><span class="line">    library.renewStuScoreOpen(date);</span><br><span class="line">    <span class="comment">//1.清理过期预约（中间可能歇业了？）</span></span><br><span class="line">    library.getOrderLibrarian().clearToShelfOpen(date);</span><br><span class="line">    library.getArrangeLibrarian().printInfo(date);</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (command.getCmd().equals(<span class="string">&quot;CLOSE&quot;</span>)) &#123;</span><br><span class="line">    <span class="comment">//更新用户信用积分</span></span><br><span class="line">    library.renewStuScore(date);</span><br><span class="line">    <span class="comment">//1.清理过期预约</span></span><br><span class="line">    library.getOrderLibrarian().clearToShelf(date);</span><br><span class="line">    <span class="comment">//2.借还处所有的书还回去</span></span><br><span class="line">    library.getArrangeLibrarian().moveBorrowToShelf();</span><br><span class="line">    library.getArrangeLibrarian().moveBorrowToDrift();</span><br><span class="line">    <span class="comment">//3.新预约运到预约处</span></span><br><span class="line">    library.getArrangeLibrarian().arrangeOrder(date);</span><br><span class="line">    library.getArrangeLibrarian().printInfo(date);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h4 id="用户请求处理"><a href="#用户请求处理" class="headerlink" title="用户请求处理"></a>用户请求处理</h4><p><code>borrow</code>、<code>return</code>、<code>pick</code>、<code>donate</code>、<code>query</code>：较为常规，省略</p>
+<p><code>order</code>、<code>pick</code>：我的设计最为抽象的部分来了</p>
+<p>数据结构十分复杂 边查边删十分丑陋</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderLibrarian</span> &#123;</span><br><span class="line">	<span class="comment">//储存预约书籍</span></span><br><span class="line">    <span class="keyword">private</span> TreeMap&lt;LocalDate, HashMap&lt;String, HashMap&lt;LibraryBookId, Integer&gt;&gt;&gt; orderBooks;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//清理过期预约</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clearToShelf</span><span class="params">(LocalDate date)</span> &#123;</span><br><span class="line">        Iterator&lt;LocalDate&gt; iterator = orderBooks.keySet().iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            <span class="type">LocalDate</span> <span class="variable">date1</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">            <span class="type">long</span> <span class="variable">cha</span> <span class="operator">=</span> date1.until(date, ChronoUnit.DAYS);</span><br><span class="line">            <span class="keyword">if</span> (cha &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (Map.Entry&lt;String, HashMap&lt;LibraryBookId, Integer&gt;&gt; entry :</span><br><span class="line">                        orderBooks.get(date1).entrySet()) &#123;</span><br><span class="line">                    library.getStudents().get(entry.getKey()).orderOverdue(entry.getValue());</span><br><span class="line">                    library.getArrangeLibrarian().moveOrderToShelf(entry.getValue());</span><br><span class="line">                &#125;</span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrangeLibrarian</span> &#123;</span><br><span class="line">    <span class="comment">//储存所有accept但未分配书籍的请求</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;LibraryRequest&gt; needArrangeOrder;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//每晚闭馆看看书架上有没有能分配的预约</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">arrangeOrder</span><span class="params">(LocalDate date)</span> &#123;</span><br><span class="line">        Iterator&lt;LibraryRequest&gt; iterator = needArrangeOrder.iterator();</span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">            <span class="type">LibraryRequest</span> <span class="variable">request</span> <span class="operator">=</span> iterator.next();</span><br><span class="line">            <span class="keyword">if</span> (haveBookToOrder(date, request)) &#123;</span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="信用积分更新"><a href="#信用积分更新" class="headerlink" title="信用积分更新"></a>信用积分更新</h4><p>这块我也写的特别抽象…..(ﾟДﾟ≡ﾟдﾟ)!?</p>
+<p>因为我开闭馆都要进行信用积分更新，怎么才能保证一本书过期学生的信用积分只减一次</p>
+<p>我利用数据局限性，学生只能同时持有一个书号的书，设置了<code>HashSet&lt;LibraryBookId&gt; overDue</code>，起到一个Flag标记位的作用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Student.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateScore</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">old</span> <span class="operator">=</span> score;</span><br><span class="line">    score = Math.min(old + x, <span class="number">20</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">renewScore</span><span class="params">(LocalDate date)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Map.Entry&lt;LibraryBookId, Integer&gt; entry : borrowBooks.getBooks().entrySet()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (entry.getValue().equals(<span class="number">0</span>) || overDue.contains(entry.getKey())) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//.....</span></span><br><span class="line">        <span class="keyword">if</span> (date.isAfter(store.plusDays(tmp))) &#123;</span><br><span class="line">            score = score - <span class="number">2</span>;</span><br><span class="line">            overDue.add(entry.getKey());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ArrangeLibrarian调用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">orderOverdue</span><span class="params">(HashMap&lt;LibraryBookId, Integer&gt; map)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (Integer integer : map.values()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (integer.equals(<span class="number">0</span>)) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        updateScore(-<span class="number">3</span> * integer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="三、谈谈自己设计思维的提升（8分）"><a href="#三、谈谈自己设计思维的提升（8分）" class="headerlink" title="三、谈谈自己设计思维的提升（8分）"></a>三、谈谈自己设计思维的提升（8分）</h2><h3 id="Unit1-层次化设计"><a href="#Unit1-层次化设计" class="headerlink" title="Unit1.层次化设计"></a>Unit1.层次化设计</h3><p>忆往昔峥嵘岁月稠，我现在仍能回忆起我最满意的架构</p>
+<p>分工明确 高内聚低耦合(u‿ฺu✿)</p>
+<p>表达式预处理<code>Predeal</code>类</p>
+<p>表达式解析，递归下降法构建<code>Lexer</code>类和<code>Paser</code>类</p>
+<p>表达式类<code>Expr</code>、项类<code>Term</code>、因子<code>Fatcor</code></p>
+<p><code>Factor</code> 实现类</p>
+<ul>
+<li><code>VarFactor</code>幂函数因子 ,定义为<code>x^a</code></li>
+<li><code>ExprFactor</code>表达式因子 ,定义为<code>(expression)^a</code></li>
+<li><code>NumberFactor</code>常数因子</li>
+<li><code>FuncFactor</code>自定义函数因子</li>
+</ul>
+<p>单项式类<code>Mono</code>、多项式类<code>Poly</code></p>
+<script type="math/tex; mode=display">
+Mono = a*x^b*exp^c(Poly)</script><h3 id="Unit2-多线程设计"><a href="#Unit2-多线程设计" class="headerlink" title="Unit2.多线程设计"></a>Unit2.多线程设计</h3><p>一朝被蛇咬，十年怕井绳</p>
+<ul>
+<li><p>数据与行为分离，注意线程安全已经刻烟吸肺了º·(˚ ˃̣̣̥᷄⌓˂̣̣̥᷅ )‧º·˚ ~</p>
+</li>
+<li><p>对于死锁和轮询，不打不相识，也有了很深刻的认识</p>
+</li>
+<li><p>感受到了sleep睡眠大法的作用，这招名为：以退为进</p>
+</li>
+</ul>
+<h3 id="Unit3-规格化设计"><a href="#Unit3-规格化设计" class="headerlink" title="Unit3.规格化设计"></a>Unit3.规格化设计</h3><p>《重生之我是算法高手》</p>
+<p>《图论入门与数据构造》</p>
+<p>《三层循环会不会梦到TLE》</p>
+<p><del>懒得喷 学完感觉自己就是笨蛋 退学打三年OI再来吧</del></p>
+<p>意识到了规格与实现分离分离的重要性</p>
+<ul>
+<li><p>规格里的数据结构与实现分离</p>
+</li>
+<li><p>规格里的方法与实际实现方法分离</p>
+</li>
+</ul>
+<h3 id="Unit4-正向化设计"><a href="#Unit4-正向化设计" class="headerlink" title="Unit4.正向化设计"></a>Unit4.正向化设计</h3><p>意识到了正向化建模设计的重要性，先画图再写代码效率UpUp</p>
+<p>（下次一定）(下辈子一定)</p>
+<h2 id="四、谈谈自己测试思维的提升（6分）"><a href="#四、谈谈自己测试思维的提升（6分）" class="headerlink" title="四、谈谈自己测试思维的提升（6分）"></a>四、谈谈自己测试思维的提升（6分）</h2><h3 id="1-白嫖测评机"><a href="#1-白嫖测评机" class="headerlink" title="1.白嫖测评机"></a>1.白嫖测评机</h3><p>伟大的稳定的DPO，在我每次写完之前就能完成更新</p>
+<p>每次写完先交他几十发</p>
+<p>有时测评机生成数据规模较大，就要手动分析并删繁就简，方便定位bug</p>
+<h3 id="2-手搓特殊数据"><a href="#2-手搓特殊数据" class="headerlink" title="2.手搓特殊数据"></a>2.手搓特殊数据</h3><p>针对题目要求的功能实现，设计一些刁钻的数据点</p>
+<p>比方说围城必阙，我这辈子忘不了你！！！！！</p>
+<h3 id="3-拍拍你的"><a href="#3-拍拍你的" class="headerlink" title="3.拍拍你的"></a>3.拍拍你的</h3><p>和伟大的舍友进行对拍</p>
+<p>数据规模较大时，在测试数据中逐行加入query指令，很快能定位到错误</p>
+<h3 id="4-耐心测试"><a href="#4-耐心测试" class="headerlink" title="4.耐心测试"></a>4.耐心测试</h3><p>对于Unit2来说，复现bug和抽SSR的概率差不多</p>
+<p>对于大规模的项目来说，耐心，才是debug最需要的</p>
+<h2 id="五、课程收获"><a href="#五、课程收获" class="headerlink" title="五、课程收获"></a>五、课程收获</h2><blockquote>
+<p>连载文《失败的艺术》正式完结( ´͈ ᵕ `͈ )◞♡</p>
+<p>人生的道路才刚刚开始~</p>
+</blockquote>
+<p>我失去了很多</p>
+<ul>
+<li><p>安逸自得离开了我，在自习室书桌前从早坐到晚，细想已经多久没有抬头看看晚霞了</p>
+</li>
+<li><p>兴趣爱好离开了我，多久没有上号回家看看，多久没有拾起画笔，多久没有阅读<a target="_blank" rel="noopener" href="https://www.jjwxc.net/">小绿书</a></p>
+</li>
+<li><p>安于现状离开了我，靠着差不多的脑子（现在我承认我是笨蛋！！！），得到差不多的成绩，来到差不多的学校，本想过着差不多的生活</p>
+<p>但在OO这个课程，没有差不多一词，不是AC就是WA，不优化到极致，你就有TLE的风险，不努力就真的会寄˚‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚</p>
+</li>
+</ul>
+<p>我得到了更多</p>
+<ul>
+<li><p>编程能力提升了！没有OO我这辈子不会好奇dfs、bfs怎么写┐=͟͟͞͞(￣ー￣)┌，但我认为这是最不值一提的收获</p>
+</li>
+<li><p>抗压能力提升了！清明三天不眠不休昼夜颠倒debug，从hw1周四开始公测还没写完到hw15没写完淡定准备通宵，没有什么好怕的了.jpg</p>
+</li>
+<li><p>心态改变了！半年之期已到，oopre失去的统统夺回来，经历了自信心的大起大落落落落落，失去的一些回来了一些（抽象的想法），总之轻舟已过万重山</p>
+</li>
+<li><p>良师益友增加了！报菜名一样罗列略显不优雅，不如这样！</p>
+<p>感谢某准备浅熬一夜的老师、某emoji群名群、某期末交流群、某三字群群u们（你们应该能认出来吧（（</p>
+<p>你们的精神支持/自习陪伴/debug帮助/nullpointerexception啥也没有/拉扯我熬过了OO课呜呜</p>
+<p>˚‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚已经是过命的交情了！！！！！</p>
+</li>
+</ul>
+<p>最后感谢传道授业的课程组、助教老师们，搭测评机的&amp;讨论区援疑质理的&amp;研讨课高谈阔论的老师们</p>
+<p>受益匪浅，感谢相遇，顶峰再见 ——6.10</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/06/19/OO/OO_Unit4/">http://seafoodfat1ger.github.io/2024/06/19/OO/OO_Unit4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OO/">OO</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUAA_OOP_2024_碎碎念总结</div></div></a></div><div class="next-post pull-right"><a href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">OS_Lab5_实验报告</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-01</div><div class="title">BUAA_OOP_2024_碎碎念总结</div></div></a></div><div><a href="/2024/03/21/OO/OO_Unit1/" title="OO_Unit1"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-21</div><div class="title">OO_Unit1</div></div></a></div><div><a href="/2024/04/18/OO/OO_Unit2/" title="OO_Unit2"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-18</div><div class="title">OO_Unit2</div></div></a></div><div><a href="/2024/05/15/OO/OO_Unit3/" title="OO_Unit3"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-15</div><div class="title">OO_Unit3</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OO-Unit4"><span class="toc-number">1.</span> <span class="toc-text">OO_Unit4</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%AD%A3%E5%90%91%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%BC%80%E5%8F%91"><span class="toc-number">1.1.</span> <span class="toc-text">一、正向建模与开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%AC%AC%E5%9B%9B%E5%8D%95%E5%85%83%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">二、第四单元架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%B1%BB%E5%9B%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.类图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.架构分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E9%97%AD%E5%85%B3%E4%B9%A6%E7%B1%8D%E6%95%B4%E7%90%86%E7%A7%BB%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">开闭关书籍整理移动流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">用户请求处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E7%94%A8%E7%A7%AF%E5%88%86%E6%9B%B4%E6%96%B0"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">信用积分更新</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4%E7%9A%84%E6%8F%90%E5%8D%87%EF%BC%888%E5%88%86%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">三、谈谈自己设计思维的提升（8分）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit1-%E5%B1%82%E6%AC%A1%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.1.</span> <span class="toc-text">Unit1.层次化设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit2-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.2.</span> <span class="toc-text">Unit2.多线程设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit3-%E8%A7%84%E6%A0%BC%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.3.</span> <span class="toc-text">Unit3.规格化设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unit4-%E6%AD%A3%E5%90%91%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.4.</span> <span class="toc-text">Unit4.正向化设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%B0%88%E8%B0%88%E8%87%AA%E5%B7%B1%E6%B5%8B%E8%AF%95%E6%80%9D%E7%BB%B4%E7%9A%84%E6%8F%90%E5%8D%87%EF%BC%886%E5%88%86%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">四、谈谈自己测试思维的提升（6分）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%99%BD%E5%AB%96%E6%B5%8B%E8%AF%84%E6%9C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.白嫖测评机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%89%8B%E6%90%93%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE"><span class="toc-number">1.4.2.</span> <span class="toc-text">2.手搓特殊数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8B%8D%E6%8B%8D%E4%BD%A0%E7%9A%84"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.拍拍你的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%80%90%E5%BF%83%E6%B5%8B%E8%AF%95"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.耐心测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%AF%BE%E7%A8%8B%E6%94%B6%E8%8E%B7"><span class="toc-number">1.5.</span> <span class="toc-text">五、课程收获</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit1"/></a><div class="content"><a class="title" href="/2024/12/18/Algorithm/w12-w15/" title="OO_Unit1">OO_Unit1</a><time datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUAA_OOP_2024_碎碎念总结"/></a><div class="content"><a class="title" href="/2024/10/01/OO/OOP_2024/" title="BUAA_OOP_2024_碎碎念总结">BUAA_OOP_2024_碎碎念总结</a><time datetime="2024-10-01T15:02:14.000Z" title="发表于 2024-10-01 23:02:14">2024-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OO_Unit4"/></a><div class="content"><a class="title" href="/2024/06/19/OO/OO_Unit4/" title="OO_Unit4">OO_Unit4</a><time datetime="2024-06-19T15:02:14.000Z" title="发表于 2024-06-19 23:02:14">2024-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab5_实验报告"/></a><div class="content"><a class="title" href="/2024/05/29/OS/OS_Lab5/" title="OS_Lab5_实验报告">OS_Lab5_实验报告</a><time datetime="2024-05-29T15:02:14.000Z" title="发表于 2024-05-29 23:02:14">2024-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OS_Lab4_实验报告"/></a><div class="content"><a class="title" href="/2024/05/24/OS/OS_Lab4/" title="OS_Lab4_实验报告">OS_Lab4_实验报告</a><time datetime="2024-05-24T15:02:14.000Z" title="发表于 2024-05-24 23:02:14">2024-05-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
