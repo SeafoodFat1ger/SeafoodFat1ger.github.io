@@ -1,0 +1,549 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>db_2 关系数据库 | 水货不水</title><meta name="author" content="Fat1ger"><meta name="copyright" content="Fat1ger"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="db_2  关系数据库关系模型数据结构关系模型的数据结构是关系 关系模型建立在集合代数基础上 关系 域：一组具有相同数据类型的值的集合 集合  $D1&#x3D;\left{0，1，2\cdots\cdots\right} $ 基数$m_i$   笛卡尔积 域的笛卡尔积$\mathrm{D_1\times D_2\times…\times D_n&#x3D;\left{(d_1,d_2,…,d_n)\mid d_i\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="db_2 关系数据库">
+<meta property="og:url" content="http://seafoodfat1ger.github.io/2024/12/21/DataBase/db_2/index.html">
+<meta property="og:site_name" content="水货不水">
+<meta property="og:description" content="db_2  关系数据库关系模型数据结构关系模型的数据结构是关系 关系模型建立在集合代数基础上 关系 域：一组具有相同数据类型的值的集合 集合  $D1&#x3D;\left{0，1，2\cdots\cdots\right} $ 基数$m_i$   笛卡尔积 域的笛卡尔积$\mathrm{D_1\times D_2\times…\times D_n&#x3D;\left{(d_1,d_2,…,d_n)\mid d_i\">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://seafoodfat1ger.github.io/img/Background.jpg">
+<meta property="article:published_time" content="2024-12-21T06:30:14.000Z">
+<meta property="article:modified_time" content="2024-12-21T08:59:01.756Z">
+<meta property="article:author" content="Fat1ger">
+<meta property="article:tag" content="db">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://seafoodfat1ger.github.io/img/Background.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://seafoodfat1ger.github.io/2024/12/21/DataBase/db_2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'db_2 关系数据库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-21 16:59:01'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link  rel="stylesheet" href="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/toux.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/Background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="水货不水"><span class="site-name">水货不水</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont  icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-pengyouquanwenzhang"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-guidang"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxian"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-dianying"></i><span> 影院</span></a></li><li><a class="site-page child" href="/games/"><i class="fa-fw iconfont icon-youxi"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具箱</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/gallery/"><i class="fa-fw iconfont icon-xiangce"></i><span> 画廊</span></a></li><li><a class="site-page child" href="/tool/"><i class="fa-fw iconfont icon-gongjuxiang"></i><span> 工具</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw iconfont icon-liuyanban"></i><span> 留言版</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-link"></i><span> 友链</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 良师益友</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw iconfont icon-gerenjianli"></i><span> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="fa-fw iconfont icon-guanyu-banben"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">db_2 关系数据库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-21T06:30:14.000Z" title="发表于 2024-12-21 14:30:14">2024-12-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-21T08:59:01.756Z" title="更新于 2024-12-21 16:59:01">2024-12-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/db/">db</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="db_2 关系数据库"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="db-2-关系数据库"><a href="#db-2-关系数据库" class="headerlink" title="db_2  关系数据库"></a>db_2  关系数据库</h1><h2 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h2><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><strong>关系模型的数据结构是关系</strong></p>
+<p>关系模型建立在集合代数基础上</p>
+<h4 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h4><ul>
+<li>域：一组具有相同数据类型的值的集合<ul>
+<li>集合  $D1=\left{0，1，2\cdots\cdots\right} $</li>
+<li>基数$m_i$</li>
+</ul>
+</li>
+<li>笛卡尔积<ul>
+<li>域的笛卡尔积$\mathrm{D_1\times D_2\times…\times D_n=\left{(d_1,d_2,…,d_n)\mid d_i\in D_i,i=1,…,n\right}}$</li>
+<li>基数$\prod_{i=1}^{n}m_i $</li>
+</ul>
+</li>
+<li>元组/（记录）<ul>
+<li>笛卡尔积的每个元素一个n元组$(d_1,d_2,…,d_n)$</li>
+</ul>
+</li>
+<li>分量<ul>
+<li>元组的一个元素的一个分量$d_i$</li>
+</ul>
+</li>
+</ul>
+<p>关系是元组的集合</p>
+<ul>
+<li><p>关系</p>
+<ul>
+<li>笛卡尔积的子集 $R(D_{1},D_{2},\cdots,D_{n})$</li>
+<li>R是关系的名字 n是关系的度/目</li>
+<li>n=1 单元/一元关系    n=2 二元关系</li>
+<li>二维表<ul>
+<li>元组：每一行</li>
+<li>域：每一列</li>
+<li>属性$A_i$：列名（唯一）</li>
+<li>值域：属性$A_i$的取值范围$D_i$</li>
+</ul>
+</li>
+<li>三种类型<ul>
+<li>基本关系<ul>
+<li>实际存储数据的逻辑表示</li>
+<li>关系的性质（*）：</li>
+<li>列是同质的 即每一列中的分量来自同一域， 是同一类型的数据</li>
+<li>不同的列可出自同一域，每列必须有不同的属性名</li>
+<li>列次序可以互换</li>
+<li>任意两个元组不能完全相同（候选码不能完全相同）</li>
+<li>行次序可以互换</li>
+<li>每一分量必须是不可再分的数据（原子值）满足这一条件的关系称作满足第一范式（1NF）的</li>
+</ul>
+</li>
+<li>查询表<ul>
+<li>查询结果对应的表</li>
+</ul>
+</li>
+<li>视图表<ul>
+<li>基本表或其他视图导出的表/虚表</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>码</p>
+<ul>
+<li><p>候选码</p>
+<p>关系中的某一属性组，若它的值<strong>唯一</strong>地标识了一个元组，并具有<strong>最小性</strong>(子集不行)</p>
+<p>比方说 学号可以直接唯一表示我，有最小性</p>
+</li>
+<li><p>主码</p>
+<p>若一个关系有多个侯选码，则选定其中一个为主码</p>
+<p>比如 我的学号和身份证号 选一即可</p>
+</li>
+<li><p>全码</p>
+<p>每个属性都是候选码</p>
+</li>
+</ul>
+</li>
+<li><p>主属性、非主属性</p>
+<ul>
+<li>候选码中的诸属性称为主属性</li>
+<li>不包含在任何候选码中的属性称为非主属性</li>
+</ul>
+</li>
+</ul>
+<h4 id="关系模式"><a href="#关系模式" class="headerlink" title="关系模式"></a>关系模式</h4><ul>
+<li>$R(U,D,dom,F)$<ul>
+<li>R 关系名</li>
+<li>U 组成关系的属性名集合</li>
+<li>D U中属性所来自的域集合</li>
+<li>dom属性-&gt;域映象集合<ul>
+<li>例子：SAP(SUPERVISOR，SPECIALITY，POSTGRADUATE)</li>
+<li>DOM(SUPERVISOR)=DOM(POSTGRADUATE)=PERSON(导师和学生都出自人这个域)</li>
+</ul>
+</li>
+<li>F 属性间数据依赖关系集合（Chapter 6）</li>
+</ul>
+</li>
+<li>简写$R(A_1,A_2,\cdots\cdots,A_n)$<ul>
+<li>R关系名</li>
+<li>$A_i$属性名</li>
+<li>D、dom属性类型、长度</li>
+</ul>
+</li>
+</ul>
+<h4 id="关系和关系模式"><a href="#关系和关系模式" class="headerlink" title="关系和关系模式"></a>关系和关系模式</h4><p>关系是关系模式在某一时刻的状态或内容</p>
+<p>关系模式是静态</p>
+<p>关系是动态</p>
+<h4 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h4><p> 所有关系的集合构成一个<strong>关系数据库</strong></p>
+<ul>
+<li>关系数据库的型（关系数据库模式）：关系模式的集合（若干域、若干域上定义的关系模式）</li>
+<li>关系数据库的值（关系数据库）：关系的集合</li>
+</ul>
+<h3 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h3><p><strong>关系的两个不变性：</strong>实体完整性、参照完整性</p>
+<ul>
+<li><p>实体完整性</p>
+<ul>
+<li>存在属性or属性组合是主码</li>
+<li>主码不可为空或部分为空</li>
+<li>主属性不能是空值</li>
+</ul>
+</li>
+<li><p>参照完整性</p>
+<ul>
+<li><p>定义外码与主码的引用规则</p>
+</li>
+<li><p>外码（外码不是所在关系的码）</p>
+<p>基本关系R中属性或属性组F并非R的码，但$K_s$是基本关系S的主码，如果F和$K_s$相对应，则称F是R的外码</p>
+<p><strong>R和S可以相同！！！</strong>例子：学生(<u>学号</u>，姓名，性别，专业号，年龄，班长学号)</p>
+<p>外码不一定与主码重名</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+ & R(K_{r},F,\cdots)\longrightarrow S(K_{s},\cdots) \\
+ & \text{参照关系}\longrightarrow\text{被参照关系(目标关系)}
+\end{aligned}</script></li>
+<li><p>若属性(或属性组)F是基本关系R的外码，它与基本关系S的主码$K_s$相对应(基本关系R和S不一定是不同的关系)，则对于R中每个元组在F上的值</p>
+<ul>
+<li>取空值(F的每个属性值均为空值)</li>
+<li>等于S中某个元组的主码值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>用户定义完整性</p>
+<ul>
+<li>针对某一具体关系数据库的约束条件，它反映某一具体应用所涉及的数据必须满足的语义要求</li>
+<li>关系模型定义和检验此类完整性的机制</li>
+</ul>
+</li>
+</ul>
+<h2 id="关系操作"><a href="#关系操作" class="headerlink" title="关系操作"></a>关系操作</h2><p>关系数据操作方式的特点是集合操作</p>
+<p>操作的对象与结果都是集合</p>
+<p>关系数据操作的基础是<strong>“关系运算”</strong></p>
+<ul>
+<li>关系代数 （代数方式）</li>
+<li>关系演算（逻辑方式）<ul>
+<li>元组关系演算</li>
+<li>域关系演算</li>
+</ul>
+</li>
+</ul>
+<h2 id="关系代数"><a href="#关系代数" class="headerlink" title="关系代数"></a>关系代数</h2><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221164637787.png" alt="image-20241221164637787" style="zoom:50%;" /></p>
+<h3 id="传统集合运算"><a href="#传统集合运算" class="headerlink" title="传统集合运算"></a>传统集合运算</h3><h4 id="（1）并"><a href="#（1）并" class="headerlink" title="（1）并"></a>（1）并</h4><p>$\mathbf{R\cup S=\left{t\mid t\in R\lor t\in S\right}}$</p>
+<h4 id="（2）差"><a href="#（2）差" class="headerlink" title="（2）差"></a>（2）差</h4><p>$\mathbf{R-S=\left{t\mid t\in R\wedge t\notin S\right}}$</p>
+<h4 id="（3）交"><a href="#（3）交" class="headerlink" title="（3）交"></a>（3）交</h4><p>$\mathbf{R\cap S=\left{t\mid t\in R\wedge t\in S\right}}$</p>
+<h4 id="（4）广义笛卡儿积（乘）"><a href="#（4）广义笛卡儿积（乘）" class="headerlink" title="（4）广义笛卡儿积（乘）"></a>（4）广义笛卡儿积（乘）</h4><p>R度m S度n RxS度m+n</p>
+<p>k1个元组和k2个元组 笛卡儿积 成为k1*k2个元组</p>
+<p>$\mathbf{R\times S=\left{t\mid t=<r,s>\wedge r\in R\wedge s\in S\right}}$</p>
+<p>注意：属性名如果相同 应该标识一下R.A S.A</p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221143057809.png" alt="image-20241221143057809" style="zoom:50%;" /></p>
+<h3 id="专门集合运算"><a href="#专门集合运算" class="headerlink" title="专门集合运算"></a>专门集合运算</h3><p>$R(A_1,A_2,\cdots\cdots,A_n)$</p>
+<ul>
+<li><p>元组：$t\in R$ </p>
+<p>$t[A_i]$是元组t对应属性Ai的一个分量</p>
+</li>
+<li><p>属性组 $A=\left{A_{i1}\cdots\cdots A_{ik}\right}$</p>
+<p>$t[A]$是元组t对应属性组A上所有分量的集合</p>
+<p>$\bar A$是去掉$A_{i1}\cdots\cdots A_{ik}$后剩的属性组</p>
+</li>
+<li><p>元组的串接 $\overset{\frown} {t_rt_s}$</p>
+</li>
+<li><p>象集</p>
+<ul>
+<li>$R(X,Z)$ X、Z属性组</li>
+<li>当$t[X]=x$，x在R中象集为$Z_{x}=\left{t[Z]|t\in R,t[X]=x\right}$</li>
+<li>表示R中属性组上值为x的诸元组在Z上分量的集合</li>
+</ul>
+</li>
+</ul>
+<h4 id="（1）选择"><a href="#（1）选择" class="headerlink" title="（1）选择"></a>（1）选择</h4><p>$\sigma_F(R)=\left{t\mid t\in R,F(t)=’真’\right}$</p>
+<p>F是选择条件，逻辑表达式$X\theta Y$</p>
+<p>$\theta$是比较运算符$(&gt;,\geq,&lt;,\leq,=,\neq)$</p>
+<p>还可以加上逻辑运算符$(\wedge,\vee,\neg)$连接起来</p>
+<h4 id="（2）投影"><a href="#（2）投影" class="headerlink" title="（2）投影"></a>（2）投影</h4><p>从关系R(U)中取若干属性列并删去重复行，组成新的关系</p>
+<p>$\Pi_A({R})=\left{~t[A]~|~t\in R~,A\subseteq U~\right}$</p>
+<h4 id="（3）连接"><a href="#（3）连接" class="headerlink" title="（3）连接"></a>（3）连接</h4><p>(先乘再选取)</p>
+<p>从两个关系的广义笛卡儿积 RxS中选取给定属性组(A和B)间满足比较条件的元组</p>
+<p>$R\underset{A\theta B}{\bowtie} S=\left{ \begin{array} {c}\overset{\frown} {t_rt_s} \end{array}\right|t_{r}\in R\wedge t_{s}\in S\wedge t_{r}\left[A\right]\theta t_{s}\left[B\right]}$</p>
+<ul>
+<li>等值连接：$\theta$是=</li>
+</ul>
+<h4 id="（4）自然连接"><a href="#（4）自然连接" class="headerlink" title="（4）自然连接"></a>（4）自然连接</h4><p>（比连接多一个投影）</p>
+<p>要求进行比较的分量必须是同名的属性组</p>
+<p>选取在相同属性列上取值相等的元组，并<strong>去掉重复的属性列</strong></p>
+<p>U为R和S的全体集合</p>
+<ul>
+<li>悬浮元组<ul>
+<li>自然连接的时候被舍弃的4</li>
+<li>填NULL是外连接  保留左 左外 保留右 右外</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221152219791.png" alt="image-20241221152219791" style="zoom:50%;" /></p>
+<h4 id="（5）除"><a href="#（5）除" class="headerlink" title="（5）除"></a>（5）除</h4><p>T包含所有在R但不在S中的属性及其值，且T的元组与S的元组的所有组合都在R中</p>
+<p>$R(X,Y)、S(Y,Z)$，Y可以有不同属性名 但必须出自相同域集</p>
+<p>$T= R\div S=\left{t_{r}\left[X\right]\mid t_{r}\in R\wedge\Pi_{Y}\left(S\right)\subseteq Y_{x}\right}$</p>
+<p>R中$X$的不同取值$x$对应$Y_x$要包含$\Pi_{Y}(S)$</p>
+<p>就保留满足条件的$x$取值对应元组的集合</p>
+<p>然后T剩下的属性是X</p>
+<h5 id="应用1"><a href="#应用1" class="headerlink" title="应用1"></a>应用1</h5><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221154648636.png" alt="image-20241221154648636" style="zoom:50%;" /></p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221154702842.png" alt="image-20241221154702842" style="zoom:50%;" /></p>
+<h5 id="应用2"><a href="#应用2" class="headerlink" title="应用2"></a>应用2</h5><blockquote>
+<p>除法是一个属性可以有多个属性值</p>
+<p>选择是一个属性只能有一个属性值</p>
+</blockquote>
+<p>i：除数（属性列）的值包含了某个关系表中的该属性的全部值，那么直接把该表中的该属性列当做除数，被除数的属性在除数的基础上加上所求属性。</p>
+<p>ii：除数（属性列）的值没有包含某个关系表中的该属性的全部值，那么可以自己构造一个关系，该关系只有该属性和其值组成。或者采用自身笛卡尔积加选择投影的方法。<br><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221160308523.png" alt="image-20241221160308523" style="zoom:50%;" /></p>
+<p>求选修了全部课程的学生学号和姓名</p>
+<p>$\prod_{\mathrm{SNO,~CNO }}(\mathrm{SC})\div\prod_{\mathrm{CNO }}(\mathrm{C})\bowtie\prod_{\mathrm{SNO ,~SN}}(\mathrm{S})$</p>
+<h3 id="基本运算（数学角度-）"><a href="#基本运算（数学角度-）" class="headerlink" title="基本运算（数学角度 *）"></a>基本运算（数学角度 *）</h3><p>并、差、笛卡儿积、投影、选择</p>
+<p>表示其他运算：</p>
+<ul>
+<li><p>交：</p>
+<p>$R\cap S=R-\left(R-S\right) $</p>
+</li>
+<li><p>连接：</p>
+<p>$R\underset{A\theta B}{\bowtie} S=\underset{A\theta B}{\sigma}\left(R\times S\right)$</p>
+</li>
+<li><p>除：</p>
+<script type="math/tex; mode=display">
+R\left(X,Y\right)\div S\left(Y,Z\right)=\\
+\prod_{X}\left(R\right)-\prod_{X}\left(\prod_{X}\left(R\right)\times\prod_{Y}\left(S\right)-R\right)</script></li>
+</ul>
+<h3 id="核心运算（数据库角度）"><a href="#核心运算（数据库角度）" class="headerlink" title="核心运算（数据库角度）"></a>核心运算（数据库角度）</h3><p>选择 投影 连接（or自然连接）</p>
+<h2 id="关系演算"><a href="#关系演算" class="headerlink" title="关系演算"></a>关系演算</h2><p>把谓词演算应用到关系运算中就是关系演算</p>
+<ul>
+<li>元组关系演算：元组是变量</li>
+<li>域关系演算：域是变量</li>
+</ul>
+<h4 id="元组演算"><a href="#元组演算" class="headerlink" title="元组演算"></a>元组演算</h4><p>$\left{ t|\Phi(t)\right}$表示了所有使$\Phi$为真的元组的集合</p>
+<ul>
+<li>t 为元组变量<ul>
+<li>约束元组变量：t之前有$\forall, \exists $</li>
+<li>自由元组变量：无</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>$\Phi(t)$是元组关系演算公式， 由原子公式和运算符组成</li>
+</ul>
+<p>公式由原子公式和运算符组成</p>
+<ul>
+<li><p>原子公式：</p>
+<ul>
+<li><p>$R(t)$ t是元组变量</p>
+</li>
+<li><p>$t[i]\ \theta\  u[j]$ 元组t的第i个分量与元组u的第j个分量满足比较关系$\theta$</p>
+</li>
+<li><p>$t[i]\ \theta\  c$ 元组t的第i个分量与常量满足比较关系$\theta$</p>
+</li>
+</ul>
+</li>
+<li><p>$\phi_{1}\wedge\phi_{2},\phi_{1}\vee\phi_{2},\neg\phi_{1}$ </p>
+</li>
+<li><p>$\exists t(\phi)$</p>
+<ul>
+<li>若有一个t使$\phi$为真，则$\exists t(\phi)$为真，否则$\exists t(\phi)$为假</li>
+</ul>
+</li>
+<li><p>$\forall t(\phi)$</p>
+<ul>
+<li>若所有t使$\phi$为真，则$\forall t(\phi)$为真，否则$\forall t(\phi)$为假</li>
+</ul>
+</li>
+</ul>
+<p>运算的优先顺序是：括号&gt;算术比较&gt;量词($\exists &gt; \forall$)&gt;逻辑运算符($\neg &gt; \wedge &gt; \vee$)</p>
+<p>（1）并</p>
+<script type="math/tex; mode=display">R\cup S=\left\{t\mid R(t)\lor S(t)\right\}</script><p>（2）差</p>
+<script type="math/tex; mode=display">R-S=\left\{t\mid R(t)\wedge\neg S(t)\right\}</script><p>（3）笛卡尔积</p>
+<script type="math/tex; mode=display">R\times S=\left\{t^{(n+m)}|(\exists u^{(n)})(\exists v^{(m)})(R(u)\land S(v)\\\land t[1]=u[1]\land\cdots\land t[n]=u[n]\wedge t[n+1]=v[1]\wedge\cdots\wedge t[n+m]=v[m])\right\}</script><p>（4）投影</p>
+<script type="math/tex; mode=display">\prod_{i_{1},i_{2},\cdots,i_{k}}(R)=\left\{t^{(k)}|(\exists u)(R(u)\wedge t[1]=u[i_{1}]\wedge\cdots\wedge t[k]=u[i_{k}])\right\}</script><p>（5）选择</p>
+<p>$\sigma_{F}\left(R\right)=\left{t\mid R(t)\wedge F^{\prime}\right}$</p>
+<p>F’是公式F用t[i]代替运算对象i得到的等价公式</p>
+<blockquote>
+<p>$t^{(x)}$代表t的目数是x</p>
+<p>如果没有$t^{(x)}$代表t的目数和R的目数相等</p>
+</blockquote>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221164007646.png" alt="image-20241221164007646" style="zoom:50%;" /></p>
+<h4 id="域关系演算"><a href="#域关系演算" class="headerlink" title="域关系演算"></a>域关系演算</h4><p>$\left{ (x1,x2,…,xk) |\Phi(x1 ,x2 , … , xk )\right}$ </p>
+<p>表示所有使$\Phi$为真的那些（x1, x2, … , xk）组成的元组集合，即表达了一个关系</p>
+<ul>
+<li>xi代表域变量</li>
+<li>$\Phi$为域关系演算公式，由 原子公式和运算符组成。</li>
+</ul>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221164155030.png" alt="image-20241221164155030" style="zoom:50%;" /></p>
+<h2 id="关系运算的安全约束"><a href="#关系运算的安全约束" class="headerlink" title="关系运算的安全约束"></a>关系运算的安全约束</h2><p>不产生无限关系（元组个数无限个）和无穷验证 的运算称为安全运算</p>
+<p>安全表达式</p>
+<p>安全约束</p>
+<p>关系代数是安全运算，关系演算则不一定是。</p>
+<p>e.g.$\left{t|\neg R(t)\right}$</p>
+<p>安全约束：</p>
+<p>对F定义一个有限的符号集DOM（F）</p>
+<p>使 F的运算结果及中间结果所产生的关系及其 元组的各个分量都必须属于DOM（F）</p>
+<p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/image-20241221164416562.png" alt="image-20241221164416562" style="zoom:50%;" /></p>
+<h2 id="数据库数据语言"><a href="#数据库数据语言" class="headerlink" title="数据库数据语言"></a>数据库数据语言</h2><ul>
+<li><p>数据定义（描述）语言DDL</p>
+</li>
+<li><p>数据操纵语言DML</p>
+<ul>
+<li>检索、插入、修改、删除</li>
+<li><strong>联机交互方式</strong> 自含式语言，可独立使用，适用于终 端直接查询；</li>
+<li><strong>宿主语言方式</strong> 嵌入式语言，依附于宿主语言，是嵌 入高级语言的程序中，以实现数据操作</li>
+</ul>
+</li>
+<li><p>数据控制语言DCL</p>
+</li>
+</ul>
+<h2 id="关系数据语言"><a href="#关系数据语言" class="headerlink" title="关系数据语言"></a>关系数据语言</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>一体化</li>
+<li>非过程化</li>
+<li>面向集合存取</li>
+<li>既可独立使用又可与主语言嵌套使用</li>
+<li>最简单、最规范化的数据结构</li>
+<li>核心：查询</li>
+<li>数学基础：关系运算</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><img src="https://gitee.com/fat1ger/picbed/raw/master/img/9.png" alt=""></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io">Fat1ger</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://seafoodfat1ger.github.io/2024/12/21/DataBase/db_2/">http://seafoodfat1ger.github.io/2024/12/21/DataBase/db_2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://seafoodfat1ger.github.io" target="_blank">水货不水</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/db/">db</a></div><div class="post_share"><div class="social-share" data-image="/img/Background.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/12/19/Algorithm/w16/" title=""><img class="cover" src="/img/Background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/12/19/DataBase/db_1/" title="db_1 数据库系统基本概念"><img class="cover" src="/img/Background.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-19</div><div class="title">db_1 数据库系统基本概念</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/toux.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Fat1ger</div><div class="author-info__description">燕子不归春事晚,一汀烟雨杏花寒</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/SeafoodFat1ger"><i class="fab fa-github"></i><span>github地址</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#db-2-%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">db_2  关系数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text">关系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">关系模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E5%92%8C%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">关系和关系模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">关系数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E6%80%A7%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">完整性约束</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.</span> <span class="toc-text">关系操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">关系代数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97"><span class="toc-number">1.3.1.</span> <span class="toc-text">传统集合运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%B9%B6"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">（1）并</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%B7%AE"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">（2）差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BA%A4"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">（3）交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%B9%BF%E4%B9%89%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF%EF%BC%88%E4%B9%98%EF%BC%89"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">（4）广义笛卡儿积（乘）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%93%E9%97%A8%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97"><span class="toc-number">1.3.2.</span> <span class="toc-text">专门集合运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%80%89%E6%8B%A9"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">（1）选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%8A%95%E5%BD%B1"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">（2）投影</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">（3）连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">（4）自然连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E9%99%A4"><span class="toc-number">1.3.2.5.</span> <span class="toc-text">（5）除</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%94%E7%94%A81"><span class="toc-number">1.3.2.5.1.</span> <span class="toc-text">应用1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%94%E7%94%A82"><span class="toc-number">1.3.2.5.2.</span> <span class="toc-text">应用2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%EF%BC%88%E6%95%B0%E5%AD%A6%E8%A7%92%E5%BA%A6-%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">基本运算（数学角度 *）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%BF%90%E7%AE%97%EF%BC%88%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%92%E5%BA%A6%EF%BC%89"><span class="toc-number">1.3.4.</span> <span class="toc-text">核心运算（数据库角度）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%BC%94%E7%AE%97"><span class="toc-number">1.4.</span> <span class="toc-text">关系演算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%BB%84%E6%BC%94%E7%AE%97"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">元组演算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E5%85%B3%E7%B3%BB%E6%BC%94%E7%AE%97"><span class="toc-number">1.4.0.2.</span> <span class="toc-text">域关系演算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%9A%84%E5%AE%89%E5%85%A8%E7%BA%A6%E6%9D%9F"><span class="toc-number">1.5.</span> <span class="toc-text">关系运算的安全约束</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%B0%E6%8D%AE%E8%AF%AD%E8%A8%80"><span class="toc-number">1.6.</span> <span class="toc-text">数据库数据语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E8%AF%AD%E8%A8%80"><span class="toc-number">1.7.</span> <span class="toc-text">关系数据语言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">1.7.1.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-number">1.7.2.</span> <span class="toc-text">分类</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/21/DataBase/db_2/" title="db_2 关系数据库"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="db_2 关系数据库"/></a><div class="content"><a class="title" href="/2024/12/21/DataBase/db_2/" title="db_2 关系数据库">db_2 关系数据库</a><time datetime="2024-12-21T06:30:14.000Z" title="发表于 2024-12-21 14:30:14">2024-12-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/19/Algorithm/w16/" title="无题"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2024/12/19/Algorithm/w16/" title="无题">无题</a><time datetime="2024-12-19T07:34:39.330Z" title="发表于 2024-12-19 15:34:39">2024-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/19/DataBase/db_1/" title="db_1 数据库系统基本概念"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="db_1 数据库系统基本概念"/></a><div class="content"><a class="title" href="/2024/12/19/DataBase/db_1/" title="db_1 数据库系统基本概念">db_1 数据库系统基本概念</a><time datetime="2024-12-19T06:30:14.000Z" title="发表于 2024-12-19 14:30:14">2024-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/19/Algorithm/%E7%AC%AC%E5%9B%9B%E6%AC%A1%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/" title="无题"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2024/12/19/Algorithm/%E7%AC%AC%E5%9B%9B%E6%AC%A1%E7%AE%97%E6%B3%95%E4%BD%9C%E4%B8%9A/" title="无题">无题</a><time datetime="2024-12-19T05:32:06.990Z" title="发表于 2024-12-19 13:32:06">2024-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/18/Algorithm/w12-w15/" title="w12-15图论"><img src="/img/Background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="w12-15图论"/></a><div class="content"><a class="title" href="/2024/12/18/Algorithm/w12-w15/" title="w12-15图论">w12-15图论</a><time datetime="2024-12-18T06:30:14.000Z" title="发表于 2024-12-18 14:30:14">2024-12-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Fat1ger</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer src="/js/cursor.js"></script><script async src="//at.alicdn.com/t/c/font_4046602_w4e3ixuz8in.js"></script><div class="aplayer no-destroy" data-id="8396765190" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
